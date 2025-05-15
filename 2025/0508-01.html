@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>合成音声の皆さんの身長</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script id="csvData" type="text/csv">
+剣崎真琴,200超（上腕部）,不明
+音無朔,194,28
+黄松龍司,182,24
+タカハシ,182,不明
+刀根,182,不明
+カズキ,180,不明
+KYO,180,不明
+虎彦,179,不明
+保志隆司,179,不明
+美剣咲夜,178,20台前半
+KAITO,175,20台前半
+中河原樹,175（千歳曰く）,不明
+カズナリ,175,不明
+観島累,175,50
+九州珠,173（ヒール有り）,不明
+アキラ,170,不明
+泉石奏汰,168,不明
+東雲巽,168（実寸）,28
+MEIKO,167,20代
+アベル,166（上腕部）,35
+一ノ瀬トキヤ,165,不明
+桜小路きなこ,165,16
+Shinjiro Aragaki,165,不明
+黒田崇矢,164,高校一年生
+夏色花梨,163,高校三年生
+聖川真斗,162（自称）,19歳になる年
+巡音ルカ,162,20
+すずしろ,160（ヒール無し）,不明
+東北イタコ,160,不明
+一十木音也,160,高校二年生
+北上双葉,160,19
+アルル・ナジャ,160,16
+如月恋,160,19
+知念実希人,160（上腕部）,50代から60代
+さとみ,160未満,15
+望月紅葉,159,16
+月永レオ,159,不明
+双葉理央,158,不明
+高峯翠,158,不明
+葵ひなた,158,17
+葵ゆうた,158,17
+田中公平,158,26
+初音ミク,158,不明
+紡乃世詞音,157.7,不明
+東雲絵名,157,17
+東北ずん子,156,不明
+天祥院英智,155,18
+IA -ARIA ON THE PLANETES-,155,不明
+合田彩,155,不明
+レニ,155,不明
+あいざわ,154.8,不明
+アスナ,154.5,不明
+フィーチャーズ（CDD-9500）,153,不明
+氷鷹誠弥,153,不明
+ユウリ,152,不明
+風花ゆう,152,14
+雨宮ひまわり,152,不明
+雨宮ひう,152,13
+結月ゆかり（穏）,152,不明
+結月ゆかり（凛）,152,不明
+ユーレイちゃん（幼馴染三人）,151,不明
+三毛門紫音,151,不明
+星野一歌,150,16
+雛星あかり,150,高校一年生
+QHE -ARIA ON THE PLANETES-,150（千歳曰く）,不明
+琴葉茜,149,不明
+ユニちゃん（CDD-0001）,149,不明
+つくよみちゃん,148（自称）,不明
+小豆沢こはね,146,16
+日向正宗,146,不明
+小鳥遊紡,146,18
+夢野幻太郎,145,21（人間換算）
+天馬司,142,17
+猫使アル,140,外見10代前半
+桃井愛莉,139,16
+つむぎ,139,外見10代
+星乃一歌（幼少）,138,不明
+幼少世詞音（弟）,137（アホ毛込み）,不明
+生駒,135.5,10
+栗駒つむぎ,135,10歳くらい
+小森江巧,135,10歳くらい
+小夜,135（猫耳を含む）,不明
+櫻歌ミコ,135,不明
+KAITO（幼少）,130,5
+雛星あかり（幼少）,90くらい,不明
+雛星あかり（赤ちゃん）,不明,0
+ちびくじらい,20前後,不明
+</script>
+<script>
+function makeTable() {
+	const csv = document.getElementById('csvData');
+	const tab = document.getElementById('myTable');
+	tab.innerHTML = '<tr><th>名前</th><th>身長</th><th>年齢</th></tr>';
+	for (const row of csv.text.split('\n')) {
+		if (row.trim() === '') continue;
+		const tr = document.createElement('tr');
+		for (const col of row.split(',')) {
+			const td = document.createElement('td');
+			td.textContent = col.trim();
+			tr.appendChild(td);
+		}
+		tab.appendChild(tr);
+	}
+}
+</script>
+</head>
+<body>
+<div id="main">
+<h2>合成音声の皆さんの身長</h2>
+<p>※元データ： <a href="https://x.com/SynthVoiceIME/status/1920134259395965358">https://x.com/SynthVoiceIME/status/1920134259395965358</a></p>
+<table id="myTable"></table>
+</div>
+<script>makeTable();</script>
+</body>
+</html>

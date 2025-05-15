@@ -1,0 +1,31 @@
+table {
+	border-collapse: collapse;
+	line-height: 133%;
+	margin: 0 16px 16px 16px; /* top right bottom left */
+	padding: 4px;
+	white-space: nowrap;
+}
+th {
+	background: #f0f0f0;
+	border: 1px solid gray;
+	padding: 4px 8px 3px 8px;
+	white-space: nowrap;
+	text-align: left;
+}
+td {
+	background: #ffffff;
+	border: 1px solid gray;
+	padding: 2px 8px 2px 8px;
+	word-wrap: break-word;
+}
+h2 {
+	margin: 12px 0 8px 12px; /* top right bottom left */
+	white-space: nowrap;
+}
+p {
+	margin: 0 0 12px 12px; /* top right bottom left */
+	white-space: nowrap;
+}
+div#main {
+	overflow-x: auto;
+}
