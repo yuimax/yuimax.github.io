@@ -1,2 +1,4 @@
+# ignore files
 _*
 _*/
+.vs/
