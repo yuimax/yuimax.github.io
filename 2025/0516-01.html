@@ -8,22 +8,28 @@
 		#main {
 			margin: 8px;
 		}
+
 		#main h1 {
 			margin: 8px 4px; /* 上下、左右 */
 		}
+
 		#main ul {
 			padding: 0 18px;
 			margin: 12px 0;
 		}
-		.image-grid {
-			display: grid;
-			grid-template-columns: repeat(4, 1fr); /* 4等分 */
-			max-width: 640px;
-		}
-		.image-grid img {
-			width: 100%;
-			height: auto;
-		}
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 横：4等分 */
+            grid-template-rows: repeat(2, 1fr); /* 縦：2等分 */
+            max-width: 640px;
+        }
+
+        .image-grid img {
+            display: block; /* 画像の下に隙間ができるのを防ぐ */
+            width: 100%;
+            height: auto;
+        }
 	</style>
 	<base href="https://bagof.crap.jp/img/vr/">
 	<base target="_blank">
@@ -36,8 +42,6 @@
 		<a href="cathy-grok-Renoir.jpg"><img src="cathy-grok-Renoir.jpg" alt="Cathy Grok ルノアール風" title="Cathy Grok ルノアール風"></a>
 		<a href="cathy-gemini-Ukiyoe.jpg"><img src="cathy-gemini-Ukiyoe.jpg" alt="Cathy Gemini 浮世絵風" title="Cathy Gemini 浮世絵風"></a>
 		<a href="cathy-copilot-Ukiyoe.jpg"><img src="cathy-copilot-Ukiyoe.jpg" alt="Cathy Copilot 浮世絵風" title="Cathy Copilot 浮世絵風"></a>
-	</div>
-	<div class="image-grid">
 		<a href="daisy-vroid.jpg"><img src="daisy-vroid.jpg" alt="Daisy VRoid 元画像" title="Daisy VRoid 元画像"></a>
 		<a href="daisy-grok-Renoir.jpg"><img src="daisy-grok-Renoir.jpg" alt="Daisy Grok ルノアール風" title="Daisy Grok ルノアール風"></a>
 		<a href="daisy-gemini-Ukiyoe.jpg"><img src="daisy-gemini-Ukiyoe.jpg" alt="Daisy Gemini 浮世絵風" title="Daisy Gemini 浮世絵風"></a>
