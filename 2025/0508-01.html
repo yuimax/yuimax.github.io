@@ -4,120 +4,138 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 	<title>合成音声の皆さんの身長</title>
-	<link rel="stylesheet" type="text/css" href="../style.css">
-	<script id="csvData" type="text/csv">
-剣崎真琴,200超（上腕部）,不明
-音無朔,194,28
-黄松龍司,182,24
-タカハシ,182,不明
-刀根,182,不明
-カズキ,180,不明
-KYO,180,不明
-虎彦,179,不明
-保志隆司,179,不明
-美剣咲夜,178,20台前半
-KAITO,175,20台前半
-中河原樹,175（千歳曰く）,不明
-カズナリ,175,不明
-観島累,175,50
-九州珠,173（ヒール有り）,不明
-アキラ,170,不明
-泉石奏汰,168,不明
-東雲巽,168（実寸）,28
-MEIKO,167,20代
-アベル,166（上腕部）,35
-一ノ瀬トキヤ,165,不明
-桜小路きなこ,165,16
-Shinjiro Aragaki,165,不明
-黒田崇矢,164,高校一年生
-夏色花梨,163,高校三年生
-聖川真斗,162（自称）,19歳になる年
-巡音ルカ,162,20
-すずしろ,160（ヒール無し）,不明
-東北イタコ,160,不明
-一十木音也,160,高校二年生
-北上双葉,160,19
-アルル・ナジャ,160,16
-如月恋,160,19
-知念実希人,160（上腕部）,50代から60代
-さとみ,160未満,15
-望月紅葉,159,16
-月永レオ,159,不明
-双葉理央,158,不明
-高峯翠,158,不明
-葵ひなた,158,17
-葵ゆうた,158,17
-田中公平,158,26
-初音ミク,158,不明
-紡乃世詞音,157.7,不明
-東雲絵名,157,17
-東北ずん子,156,不明
-天祥院英智,155,18
-IA -ARIA ON THE PLANETES-,155,不明
-合田彩,155,不明
-レニ,155,不明
-あいざわ,154.8,不明
-アスナ,154.5,不明
-フィーチャーズ（CDD-9500）,153,不明
-氷鷹誠弥,153,不明
-ユウリ,152,不明
-風花ゆう,152,14
-雨宮ひまわり,152,不明
-雨宮ひう,152,13
-結月ゆかり（穏）,152,不明
-結月ゆかり（凛）,152,不明
-ユーレイちゃん（幼馴染三人）,151,不明
-三毛門紫音,151,不明
-星野一歌,150,16
-雛星あかり,150,高校一年生
-QHE -ARIA ON THE PLANETES-,150（千歳曰く）,不明
-琴葉茜,149,不明
-ユニちゃん（CDD-0001）,149,不明
-つくよみちゃん,148（自称）,不明
-小豆沢こはね,146,16
-日向正宗,146,不明
-小鳥遊紡,146,18
-夢野幻太郎,145,21（人間換算）
-天馬司,142,17
-猫使アル,140,外見10代前半
-桃井愛莉,139,16
-つむぎ,139,外見10代
-星乃一歌（幼少）,138,不明
-幼少世詞音（弟）,137（アホ毛込み）,不明
-生駒,135.5,10
-栗駒つむぎ,135,10歳くらい
-小森江巧,135,10歳くらい
-小夜,135（猫耳を含む）,不明
-櫻歌ミコ,135,不明
-KAITO（幼少）,130,5
-雛星あかり（幼少）,90くらい,不明
-雛星あかり（赤ちゃん）,不明,0
-ちびくじらい,20前後,不明
-</script>
-<script>
-function makeTable() {
-	const csv = document.getElementById('csvData');
-	const tab = document.getElementById('myTable');
-	tab.innerHTML = '<tr><th>名前</th><th>身長</th><th>年齢</th></tr>';
-	for (const row of csv.text.split('\n')) {
-		if (row.trim() === '') continue;
-		const tr = document.createElement('tr');
-		for (const col of row.split(',')) {
-			const td = document.createElement('td');
-			td.textContent = col.trim();
-			tr.appendChild(td);
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
 		}
-		tab.appendChild(tr);
-	}
-}
-</script>
+		#main {
+			margin: 8px;
+			overflow-x: auto;
+		}
+		h1, h2, h3, p {
+			margin: 12px 16px; /* 上下、左右 */
+			white-space: nowrap;
+		}
+		table {
+			margin: 12px 16px;
+			padding: 4px;
+			border-collapse: collapse;
+			line-height: 150%;
+			white-space: nowrap;
+		}
+		th {
+			background: #f0f0f0;
+			border: 1px solid gray;
+			padding: 4px 8px;
+			text-align: left;
+		}
+		td {
+			background: #ffffff;
+			border: 1px solid gray;
+			padding: 2px 8px;
+		}
+	</style>
 </head>
 <body>
 <div id="main">
-<h1>合成音声の皆さんの身長</h1>
-<p>※元データ： <a href="https://x.com/SynthVoiceIME/status/1920134259395965358">https://x.com/SynthVoiceIME/status/1920134259395965358</a></p>
-<table id="myTable"></table>
+	<h1>合成音声の皆さんの身長</h1>
+	<p>
+		※元データ：
+		<a href="https://x.com/SynthVoiceIME/status/1920134259395965358">
+			https://x.com/SynthVoiceIME/status/1920134259395965358
+		</a>
+	</p>
+	<table>
+		<tr><th>名前</th><th>身長</th><th>年齢</th></tr>
+		<tr><td>剣崎真琴</td><td>200超（上腕部）</td><td>不明</td></tr>
+		<tr><td>音無朔</td><td>194</td><td>28</td></tr>
+		<tr><td>黄松龍司</td><td>182</td><td>24</td></tr>
+		<tr><td>タカハシ</td><td>182</td><td>不明</td></tr>
+		<tr><td>刀根</td><td>182</td><td>不明</td></tr>
+		<tr><td>カズキ</td><td>180</td><td>不明</td></tr>
+		<tr><td>KYO</td><td>180</td><td>不明</td></tr>
+		<tr><td>虎彦</td><td>179</td><td>不明</td></tr>
+		<tr><td>保志隆司</td><td>179</td><td>不明</td></tr>
+		<tr><td>美剣咲夜</td><td>178</td><td>20台前半</td></tr>
+		<tr><td>KAITO</td><td>175</td><td>20台前半</td></tr>
+		<tr><td>中河原樹</td><td>175（千歳曰く）</td><td>不明</td></tr>
+		<tr><td>カズナリ</td><td>175</td><td>不明</td></tr>
+		<tr><td>観島累</td><td>175</td><td>50</td></tr>
+		<tr><td>九州珠</td><td>173（ヒール有り）</td><td>不明</td></tr>
+		<tr><td>アキラ</td><td>170</td><td>不明</td></tr>
+		<tr><td>泉石奏汰</td><td>168</td><td>不明</td></tr>
+		<tr><td>東雲巽</td><td>168（実寸）</td><td>28</td></tr>
+		<tr><td>MEIKO</td><td>167</td><td>20代</td></tr>
+		<tr><td>アベル</td><td>166（上腕部）</td><td>35</td></tr>
+		<tr><td>一ノ瀬トキヤ</td><td>165</td><td>不明</td></tr>
+		<tr><td>桜小路きなこ</td><td>165</td><td>16</td></tr>
+		<tr><td>Shinjiro Aragaki</td><td>165</td><td>不明</td></tr>
+		<tr><td>黒田崇矢</td><td>164</td><td>高校一年生</td></tr>
+		<tr><td>夏色花梨</td><td>163</td><td>高校三年生</td></tr>
+		<tr><td>聖川真斗</td><td>162（自称）</td><td>19歳になる年</td></tr>
+		<tr><td>巡音ルカ</td><td>162</td><td>20</td></tr>
+		<tr><td>すずしろ</td><td>160（ヒール無し）</td><td>不明</td></tr>
+		<tr><td>東北イタコ</td><td>160</td><td>不明</td></tr>
+		<tr><td>一十木音也</td><td>160</td><td>高校二年生</td></tr>
+		<tr><td>北上双葉</td><td>160</td><td>19</td></tr>
+		<tr><td>アルル・ナジャ</td><td>160</td><td>16</td></tr>
+		<tr><td>如月恋</td><td>160</td><td>19</td></tr>
+		<tr><td>知念実希人</td><td>160（上腕部）</td><td>50代から60代</td></tr>
+		<tr><td>さとみ</td><td>160未満</td><td>15</td></tr>
+		<tr><td>望月紅葉</td><td>159</td><td>16</td></tr>
+		<tr><td>月永レオ</td><td>159</td><td>不明</td></tr>
+		<tr><td>双葉理央</td><td>158</td><td>不明</td></tr>
+		<tr><td>高峯翠</td><td>158</td><td>不明</td></tr>
+		<tr><td>葵ひなた</td><td>158</td><td>17</td></tr>
+		<tr><td>葵ゆうた</td><td>158</td><td>17</td></tr>
+		<tr><td>田中公平</td><td>158</td><td>26</td></tr>
+		<tr><td>初音ミク</td><td>158</td><td>不明</td></tr>
+		<tr><td>紡乃世詞音</td><td>157.7</td><td>不明</td></tr>
+		<tr><td>東雲絵名</td><td>157</td><td>17</td></tr>
+		<tr><td>東北ずん子</td><td>156</td><td>不明</td></tr>
+		<tr><td>天祥院英智</td><td>155</td><td>18</td></tr>
+		<tr><td>IA -ARIA ON THE PLANETES-</td><td>155</td><td>不明</td></tr>
+		<tr><td>合田彩</td><td>155</td><td>不明</td></tr>
+		<tr><td>レニ</td><td>155</td><td>不明</td></tr>
+		<tr><td>あいざわ</td><td>154.8</td><td>不明</td></tr>
+		<tr><td>アスナ</td><td>154.5</td><td>不明</td></tr>
+		<tr><td>フィーチャーズ（CDD-9500）</td><td>153</td><td>不明</td></tr>
+		<tr><td>氷鷹誠弥</td><td>153</td><td>不明</td></tr>
+		<tr><td>ユウリ</td><td>152</td><td>不明</td></tr>
+		<tr><td>風花ゆう</td><td>152</td><td>14</td></tr>
+		<tr><td>雨宮ひまわり</td><td>152</td><td>不明</td></tr>
+		<tr><td>雨宮ひう</td><td>152</td><td>13</td></tr>
+		<tr><td>結月ゆかり（穏）</td><td>152</td><td>不明</td></tr>
+		<tr><td>結月ゆかり（凛）</td><td>152</td><td>不明</td></tr>
+		<tr><td>ユーレイちゃん（幼馴染三人）</td><td>151</td><td>不明</td></tr>
+		<tr><td>三毛門紫音</td><td>151</td><td>不明</td></tr>
+		<tr><td>星野一歌</td><td>150</td><td>16</td></tr>
+		<tr><td>雛星あかり</td><td>150</td><td>高校一年生</td></tr>
+		<tr><td>QHE -ARIA ON THE PLANETES-</td><td>150（千歳曰く）</td><td>不明</td></tr>
+		<tr><td>琴葉茜</td><td>149</td><td>不明</td></tr>
+		<tr><td>ユニちゃん（CDD-0001）</td><td>149</td><td>不明</td></tr>
+		<tr><td>つくよみちゃん</td><td>148（自称）</td><td>不明</td></tr>
+		<tr><td>小豆沢こはね</td><td>146</td><td>16</td></tr>
+		<tr><td>日向正宗</td><td>146</td><td>不明</td></tr>
+		<tr><td>小鳥遊紡</td><td>146</td><td>18</td></tr>
+		<tr><td>夢野幻太郎</td><td>145</td><td>21（人間換算）</td></tr>
+		<tr><td>天馬司</td><td>142</td><td>17</td></tr>
+		<tr><td>猫使アル</td><td>140</td><td>外見10代前半</td></tr>
+		<tr><td>桃井愛莉</td><td>139</td><td>16</td></tr>
+		<tr><td>つむぎ</td><td>139</td><td>外見10代</td></tr>
+		<tr><td>星乃一歌（幼少）</td><td>138</td><td>不明</td></tr>
+		<tr><td>幼少世詞音（弟）</td><td>137（アホ毛込み）</td><td>不明</td></tr>
+		<tr><td>生駒</td><td>135.5</td><td>10</td></tr>
+		<tr><td>栗駒つむぎ</td><td>135</td><td>10歳くらい</td></tr>
+		<tr><td>小森江巧</td><td>135</td><td>10歳くらい</td></tr>
+		<tr><td>小夜</td><td>135（猫耳を含む）</td><td>不明</td></tr>
+		<tr><td>櫻歌ミコ</td><td>135</td><td>不明</td></tr>
+		<tr><td>KAITO（幼少）</td><td>130</td><td>5</td></tr>
+		<tr><td>雛星あかり（幼少）</td><td>90くらい</td><td>不明</td></tr>
+		<tr><td>雛星あかり（赤ちゃん）</td><td>不明</td><td>0</td></tr>
+		<tr><td>ちびくじらい</td><td>20前後</td><td>不明</td></tr>
+	</table>
 </div>
-<script>makeTable();</script>
 </body>
 </html>
