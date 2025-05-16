@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>AI画像のタッチを比較</title>
+	<style>
+		#main {
+			margin: 8px; /* 上下左右 */
+		}
+		#main h1 {
+			margin: 8px 4px; /* 上下、左右 */
+		}
+		#main ul {
+			padding: 0 18px;
+			margin: 12px 0;
+		}
+		.image-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr); /* 4等分 */
+			max-width: 640px;
+		}
+		.image-grid img {
+			width: 100%;
+			height: auto;
+		}
+	</style>
+	<!--
+	<script>
+		function image_link(url, title) {
+			document.write(`<a href="${url}"><img src="${url}" alt="${title}" title="${title}"></a>\n`);
+		}
+		function write_image_grid() {
+			document.write('<div class="image-grid">\n');
+			image_link('cathy-vroid.jpg', 'Cathy VRoid 元画像');
+			image_link('cathy-grok-Renoir.jpg', 'Cathy Grok ルノアール風');
+			image_link('cathy-gemini-Ukiyoe.jpg', 'Cathy Gemini 浮世絵風');
+			image_link('cathy-copilot-Ukiyoe.jpg', 'Cathy Copilot 浮世絵風');
+			document.write('</div>\n');
+			document.write('<div class="image-grid">\n');
+			image_link('daisy-vroid.jpg', 'Daisy VRoid 元画像');
+			image_link('daisy-grok-Renoir.jpg', 'Daisy Grok ルノアール風');
+			image_link('daisy-gemini-Ukiyoe.jpg', 'Daisy Gemini 浮世絵風');
+			image_link('daisy-copilot-Ukiyoe.jpg', 'Daisy Copilot 浮世絵風');
+			document.write('</div>\n');
+		}
+	</script>
+	-->
+	<base href="https://bagof.crap.jp/img/vr/">
+	<base target="_blank">
+</head>
+<body>
+<div id="main">
+	<h1>AI画像のタッチを比較</h1>
+	<script>write_image_grid();</script>
+	<div class="image-grid">
+		<a href="cathy-vroid.jpg"><img src="cathy-vroid.jpg" alt="Cathy VRoid 元画像" title="Cathy VRoid 元画像"></a>
+		<a href="cathy-grok-Renoir.jpg"><img src="cathy-grok-Renoir.jpg" alt="Cathy Grok ルノアール風" title="Cathy Grok ルノアール風"></a>
+		<a href="cathy-gemini-Ukiyoe.jpg"><img src="cathy-gemini-Ukiyoe.jpg" alt="Cathy Gemini 浮世絵風" title="Cathy Gemini 浮世絵風"></a>
+		<a href="cathy-copilot-Ukiyoe.jpg"><img src="cathy-copilot-Ukiyoe.jpg" alt="Cathy Copilot 浮世絵風" title="Cathy Copilot 浮世絵風"></a>
+	</div>
+	<div class="image-grid">
+		<a href="daisy-vroid.jpg"><img src="daisy-vroid.jpg" alt="Daisy VRoid 元画像" title="Daisy VRoid 元画像"></a>
+		<a href="daisy-grok-Renoir.jpg"><img src="daisy-grok-Renoir.jpg" alt="Daisy Grok ルノアール風" title="Daisy Grok ルノアール風"></a>
+		<a href="daisy-gemini-Ukiyoe.jpg"><img src="daisy-gemini-Ukiyoe.jpg" alt="Daisy Gemini 浮世絵風" title="Daisy Gemini 浮世絵風"></a>
+		<a href="daisy-copilot-Ukiyoe.jpg"><img src="daisy-copilot-Ukiyoe.jpg" alt="Daisy Copilot 浮世絵風" title="Daisy Copilot 浮世絵風"></a>
+	</div>
+	<ul>
+		<li>左から VRoid 元画像、<strong>Grok ルノアール風</strong>、<strong>Gemini 浮世絵風</strong>、<strong>Copilot 浮世絵風</strong> である</li>
+		<li>それぞれ「ｘｘｘ風に変えてください」と依頼し、２～３回リテイクした</li>
+	</ul>
+	<ul>
+		<li>Grok ルノアール風は、いかにもそれっぽくて好き</li>
+	</ul>
+	<ul>
+		<li>Gemini 浮世絵風と Copilot 浮世絵風は、同じ注文なのにかなりタッチが違う</li>
+		<li>たぶん Gemini は、浮世絵を「色っぽいマンガ」と認識している</li>
+		<li>一方 Copilot は、浮世絵を「素朴な木版画」と認識している</li>
+	</ul>
+</div>
+</body>
+</html>
