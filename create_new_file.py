@@ -8,12 +8,13 @@ def get_uniq_path():
     for i in range(1, imax + 1):
         path = f"{year}/{mday}-{i:02d}.html"
         try:
-            with open(path, "x") as f:
+            with open(path, "x") as f: # "x": 排他的作成モード
                 return path
         except:
             continue
     else:
         print(f"ファイル作成失敗（連番を {imax} まで使い切りました）")
+        return None
 
 if __name__ == "__main__":
     path = get_uniq_path()
