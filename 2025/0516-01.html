@@ -46,7 +46,14 @@
             <li>たぶん Gemini は、浮世絵を「色っぽいマンガ」と認識している</li>
             <li>一方 Copilot は、浮世絵を「素朴な木版画」と認識している</li>
         </ul>
-        <p><a href="../">[TOP]</a></p>
+        <script>
+          function get_dir(path) {
+            const i = path.lastIndexOf('/');
+            return (i >= 0) ? path.substring(0, i) : path;
+          }
+          const parent_dir = location.protocol + '//' + location.host + get_dir(get_dir(location.pathname));
+          document.write(`<p><a href="${parent_dir}/">[TOP]</a></p>`);
+        </script>
     </div>
 </body>
 </html>
