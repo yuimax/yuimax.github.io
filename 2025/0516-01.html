@@ -51,8 +51,8 @@
             const i = path.lastIndexOf('/');
             return (i >= 0) ? path.substring(0, i) : path;
           }
-          const parent_dir = location.protocol + '//' + location.host + get_dir(get_dir(location.pathname));
-          document.write(`<p><a href="${parent_dir}/">[TOP]</a></p>`);
+          const parent_dir = location.origin + get_dir(get_dir(location.pathname));
+          document.write(`<p><a href="${parent_dir}/" target="_top">[TOP]</a></p>`);
         </script>
     </div>
 </body>
