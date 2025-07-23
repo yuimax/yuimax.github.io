@@ -52,6 +52,7 @@
             const i = path.lastIndexOf('/');
             return (i >= 0) ? path.substring(0, i) : path;
           }
+          const parent_link = document.getElementById('parent_link');
           parent_link.href = location.origin + get_dir(get_dir(location.pathname)) + '/';
         </script>
     </div>
