@@ -12,11 +12,12 @@
             grid-template-rows: repeat(2, 1fr); /* 縦：2等分 */
             max-width: 640px;
         }
-        .image-grid img {
-            display: block; /* 画像の下に隙間ができるのを防ぐ */
-            width: 100%;
-            height: auto;
-        }
+
+            .image-grid img {
+                display: block; /* 画像の下に隙間ができるのを防ぐ */
+                width: 100%;
+                height: auto;
+            }
     </style>
     <base href="https://bagof.crap.jp/img/vr/">
     <base target="_blank">
@@ -48,12 +49,12 @@
         </ul>
         <p><a id="parent_link" href="" target="_top">[TOP]</a></p>
         <script>
-          function get_dir(path) {
-            const i = path.lastIndexOf('/');
-            return (i >= 0) ? path.substring(0, i) : path;
-          }
-          const parent_link = document.getElementById('parent_link');
-          parent_link.href = location.origin + get_dir(get_dir(location.pathname)) + '/';
+            function get_dir(path) {
+                const i = path.lastIndexOf('/');
+                return (i >= 0) ? path.substring(0, i) : path;
+            }
+            const parent_link = document.getElementById('parent_link');
+            parent_link.href = location.origin + get_dir(get_dir(location.pathname)) + '/';
         </script>
     </div>
 </body>
