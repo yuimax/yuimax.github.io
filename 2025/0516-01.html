@@ -18,21 +18,27 @@
             height: auto;
         }
     </style>
-    <base href="https://bagof.crap.jp/img/vr/">
-    <base target="_blank">
 </head>
 <body>
     <div id="main">
         <h1>AI画像の作風を比較</h1>
         <div class="image-grid">
-            <a href="cathy-vroid.jpg"><img src="cathy-vroid.jpg" alt="Cathy VRoid 元画像" title="Cathy VRoid 元画像"></a>
-            <a href="cathy-grok-Renoir.jpg"><img src="cathy-grok-Renoir.jpg" alt="Cathy Grok ルノアール風" title="Cathy Grok ルノアール風"></a>
-            <a href="cathy-gemini-Ukiyoe.jpg"><img src="cathy-gemini-Ukiyoe.jpg" alt="Cathy Gemini 浮世絵風" title="Cathy Gemini 浮世絵風"></a>
-            <a href="cathy-copilot-Ukiyoe.jpg"><img src="cathy-copilot-Ukiyoe.jpg" alt="Cathy Copilot 浮世絵風" title="Cathy Copilot 浮世絵風"></a>
-            <a href="daisy-vroid.jpg"><img src="daisy-vroid.jpg" alt="Daisy VRoid 元画像" title="Daisy VRoid 元画像"></a>
-            <a href="daisy-grok-Renoir.jpg"><img src="daisy-grok-Renoir.jpg" alt="Daisy Grok ルノアール風" title="Daisy Grok ルノアール風"></a>
-            <a href="daisy-gemini-Ukiyoe.jpg"><img src="daisy-gemini-Ukiyoe.jpg" alt="Daisy Gemini 浮世絵風" title="Daisy Gemini 浮世絵風"></a>
-            <a href="daisy-copilot-Ukiyoe.jpg"><img src="daisy-copilot-Ukiyoe.jpg" alt="Daisy Copilot 浮世絵風" title="Daisy Copilot 浮世絵風"></a>
+            <script>
+                const data = [
+                    ['cathy-vroid.jpg',          'Cathy Vroid 元画像'      ],
+                    ['cathy-grok-Renoir.jpg',    'Cathy Grok ルノアール風' ],
+                    ['cathy-gemini-Ukiyoe.jpg',  'Cathy Gemimi 浮世絵風'   ],
+                    ['cathy-copilot-Ukiyoe.jpg', 'Cathy Copilot 浮世絵風'  ],
+                    ['daisy-vroid.jpg',          'Daisy Vroid 元画像'      ],
+                    ['daisy-grok-Renoir.jpg',    'Daisy Grok ルノアール風' ],
+                    ['daisy-gemini-Ukiyoe.jpg',  'Daisy Gemimi 浮世絵風'   ],
+                    ['daisy-copilot-Ukiyoe.jpg', 'Daisy Copilot 浮世絵風'  ],
+                ];
+                for (const [file, title] of data) {
+                    const url = 'https://bagof.crap.jp/img/vr/' + file;
+                    document.write(`<a href="${url}"><img src="${url}" alt="${title}" title="${title}"></a>\n`);
+                }
+            </script>
         </div>
         <ul>
             <li>左から <strong>VRoid 元画像</strong>、<strong>Grok ルノアール風</strong>、<strong>Gemini 浮世絵風</strong>、<strong>Copilot 浮世絵風</strong> である</li>
@@ -46,15 +52,7 @@
             <li>たぶん Gemini は、浮世絵を「色っぽいマンガ」と認識している</li>
             <li>一方 Copilot は、浮世絵を「素朴な木版画」と認識している</li>
         </ul>
-        <p><a id="parent_link" href="" target="_top">[TOP]</a></p>
-        <script>
-            function get_dir(path) {
-                const i = path.lastIndexOf('/');
-                return (i >= 0) ? path.substring(0, i) : path;
-            }
-            const parent_link = document.getElementById('parent_link');
-            parent_link.href = location.origin + get_dir(get_dir(location.pathname)) + '/';
-        </script>
+        <p><a href="../">[TOP]</a></p>
     </div>
 </body>
 </html>
