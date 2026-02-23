@@ -57,7 +57,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#img">拡大縮小は自力&lt;img&gt;タグで</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#html">その他の表示も自力HTMLで</a>
+    <li class="toctree-l2"><a class="reference internal" href="#html">凝った表示はすべて自力HTMLで</a>
     </li>
     </ul>
                 </li>
@@ -99,13 +99,13 @@
 <h3 id="img">拡大縮小は自力<code>&lt;img&gt;</code>タグで</h3>
 <p>Markdown 記法は画像サイズを指定できないため、サイズを変えたいときは自力で <code>&lt;img&gt;</code> タグを書く。
 このとき サイト内の画像 URL は <strong><u><code>../</code></u> から始まる</strong> ので注意する。</p>
-<p>例: <strong><code>&lt;img src="../img/daisy3.jpg" alt="ALT" style="width:200px; height:100px;"&gt;</code></strong><br>
-<img src="../img/daisy3.jpg" alt="ALT" style="width:200px; height:100px;"><br></p>
-<p><code>&lt;img width="200" ...&gt;</code> のように <code>width</code> 属性も使えるが、
+<p>例: <strong><code>&lt;img src="../img/daisy3.jpg" alt="ALT" style="width:80px; height:80px;"&gt;</code></strong><br>
+<img src="../img/daisy3.jpg" alt="ALT" style="width:80px; height:80px;"><br></p>
+<p><code>&lt;img width="80" ...&gt;</code> のように <code>width</code> 属性も使えるが、
 <code>height</code> 属性は無視される（CSSでそう設定されている）。</p>
-<h3 id="html">その他の表示も自力HTMLで</h3>
+<h3 id="html">凝った表示はすべて自力HTMLで</h3>
 <p>レイアウトに凝りたい場合などは自力で HTML を書く。
-たとえば「4枚の画像を横に並べ、レスポンシブで画面にフィット」の例。</p>
+たとえば「4枚の画像を横に並べ、レスポンシブ対応で拡大縮小」の例。</p>
 <pre><code class="language-html">&lt;style&gt;
 .image-container {
   display: flex;

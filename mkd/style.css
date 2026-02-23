@@ -24,12 +24,12 @@ h3::before {
 .rst-content h1,
 .rst-content h2,
 .rst-content h3 {
-	margin: 24px 0 8px 0;
+	margin: 16px 0 8px 0;
 }
 
 .rst-content hr,
 .rst-content p {
-	margin: 16px 0 8px 0;
+	margin: 8px 0 4px 0;
 }
 
 .rst-content code {
