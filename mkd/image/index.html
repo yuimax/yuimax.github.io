@@ -86,26 +86,26 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="_1">画像の表示方法</h1>
-<p>画像表示は、基本的に Markdown で記述する。</p>
+<p>画像は基本的に Markdown 記法で貼りつける。</p>
 <h3 id="_2">外部サイトの画像ファイル</h3>
 <p>表示したい画像の URL をそのまま指定する。</p>
 <p>例: <strong><code>![ALT](https://bagof.crap.jp/img/vr/daisy1.jpg)</code></strong><br>
 <img alt="ALT" src="https://bagof.crap.jp/img/vr/daisy1.jpg" /><br></p>
 <h3 id="_3">サイト内の画像ファイル</h3>
-<p>ソースの <code>docs/img/</code> にあるファイルは、ビルド後に <code>site/img/</code> に入る。<br>
+<p>ソースの段階で <code>docs/img/</code> にあるファイルは、ビルド後に <code>site/img/</code> に入る。<br>
 これを Makrdown では <code>img/</code> からの相対パスとして指定する。<br></p>
 <p>例: <strong><code>![ALT](img/daisy3.jpg)</code></strong><br>
 <img alt="ALT" src="../img/daisy3.jpg" /><br></p>
 <h3 id="img">拡大縮小は自力<code>&lt;img&gt;</code>タグで</h3>
 <p>Markdown 記法は画像サイズを指定できないため、サイズを変えたいときは自力で <code>&lt;img&gt;</code> タグを書く。
-このとき サイト内の画像の URL は <strong><u><code>../</code></u> から始まる</strong> ので注意する。</p>
+このとき サイト内の画像 URL は <strong><u><code>../</code></u> から始まる</strong> ので注意する。</p>
 <p>例: <strong><code>&lt;img src="../img/daisy3.jpg" alt="ALT" style="width:200px; height:100px;"&gt;</code></strong><br>
 <img src="../img/daisy3.jpg" alt="ALT" style="width:200px; height:100px;"><br></p>
-<p>なお <code>&lt;img width="200" ...&gt;</code> のような <code>width</code> 属性も使えるが、
+<p><code>&lt;img width="200" ...&gt;</code> のように <code>width</code> 属性も使えるが、
 <code>height</code> 属性は無視される（CSSでそう設定されている）。</p>
 <h3 id="html">その他の表示も自力HTMLで</h3>
-<p>レイアウトに凝りたい場合なども自力で HTML を書く。
-たとえば「4枚の画像を横に並べてレスポンシブ対応」の例。</p>
+<p>レイアウトに凝りたい場合などは自力で HTML を書く。
+たとえば「4枚の画像を横に並べ、レスポンシブで画面にフィット」の例。</p>
 <pre><code class="language-html">&lt;style&gt;
 .image-container {
   display: flex;

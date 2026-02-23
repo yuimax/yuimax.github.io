@@ -21,12 +21,15 @@ h3::before {
   content: "\25FE"; /* ◼️ Black Medium Square */
 }
 
-.rst-content hr,
-.rst-content p,
 .rst-content h1,
 .rst-content h2,
 .rst-content h3 {
-	margin: 16px 0 16px 0;
+	margin: 24px 0 8px 0;
+}
+
+.rst-content hr,
+.rst-content p {
+	margin: 16px 0 8px 0;
 }
 
 .rst-content code {
