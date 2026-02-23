@@ -1,0 +1,22 @@
+h1 {
+  font-size: 167%;
+  background-color: #f4f4f4;
+  border-left: 6px solid #bbb;
+  padding: 4px 0 0 8px;
+}
+
+h2 {
+  font-size: 124%;
+  background-color: #f4f4f4;
+  border-left: 6px solid #bbb;
+  padding: 2px 0 0 8px;
+}
+
+h3 {
+  font-size: 100%;
+  background-color: #f4f4f4;
+}
+
+h3::before {
+  content: "\25FE"; /* ◼️ Black Medium Square */
+}
