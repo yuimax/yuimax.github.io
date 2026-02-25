@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>画像の表示方法 - MkDocs Usage</title>
+    <title>基本的な処理の流れ - MkDocs Usage</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u753b\u50cf\u306e\u8868\u793a\u65b9\u6cd5";
-        var mkdocs_page_input_path = "image.md";
+        var mkdocs_page_name = "\u57fa\u672c\u7684\u306a\u51e6\u7406\u306e\u6d41\u308c";
+        var mkdocs_page_input_path = "workflow.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -48,22 +48,20 @@
                 <li class="toctree-l1"><a class="reference internal" href="../settings/">初期設定</a>
                 </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../workflow/">基本的な処理の流れ</a>
-                </li>
-              </ul>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="#">画像の表示方法</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">基本的な処理の流れ</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#_2">外部サイトの画像ファイル</a>
+    <li class="toctree-l2"><a class="reference internal" href="#1">1. プロジェクト名を決める</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_3">サイト内の画像ファイル</a>
+    <li class="toctree-l2"><a class="reference internal" href="#2">2. プロジェクトの新規作成</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#img">拡大縮小は自力&lt;img&gt;タグで</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#html">凝った表示はすべて自力HTMLで</a>
+    <li class="toctree-l2"><a class="reference internal" href="#3">3. ローカルサーバーを起動する</a>
     </li>
     </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../image/">画像の表示方法</a>
                 </li>
               </ul>
               <ul>
@@ -88,7 +86,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="ドキュメント"></a></li>
-      <li class="breadcrumb-item active">画像の表示方法</li>
+      <li class="breadcrumb-item active">基本的な処理の流れ</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -97,65 +95,45 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">画像の表示方法</h1>
-<p>画像は基本的に Markdown 記法で貼りつける。</p>
-<h3 id="_2">外部サイトの画像ファイル</h3>
-<p>表示したい画像の URL をそのまま指定する。</p>
-<p>例: <strong><code>![ALT](https://www.yuimax.org/prof/daisy1.jpg)</code></strong><br>
-<img alt="ALT" src="https://www.yuimax.org/prof/daisy1.jpg" /><br></p>
-<h3 id="_3">サイト内の画像ファイル</h3>
-<p>画像は <code>docs/img/</code> に置き、Makrdown では <code>img/</code> からの相対パスで指定する。</p>
-<p>例: <strong><code>![ALT](img/daisy3.jpg)</code></strong><br>
-<img alt="ALT" src="../img/daisy3.jpg" /><br></p>
-<h3 id="img">拡大縮小は自力<code>&lt;img&gt;</code>タグで</h3>
-<p>Markdown 記法は画像サイズを指定できないため、サイズを変えたいときは自力で <code>&lt;img&gt;</code> タグを書く。
-このとき画像の URL は <strong><u><code>../</code></u> から始まる</strong> ので注意する。</p>
-<p>例: <strong><code>&lt;img src="../img/daisy3.jpg" alt="ALT" style="width:80px; height:80px;"&gt;</code></strong><br>
-<img src="../img/daisy3.jpg" alt="ALT" style="width:80px; height:80px;"><br></p>
-<p><code>&lt;img width="80" ...&gt;</code> のように <code>width</code> 属性も使えるが、
-<code>height</code> 属性は無視される（CSSでそう設定されている）。</p>
-<h3 id="html">凝った表示はすべて自力HTMLで</h3>
-<p>レイアウトに凝りたい場合などは自力で HTML を書く。
-たとえば「4枚の画像を横に並べ、レスポンシブ対応で拡大縮小」の例。</p>
-<pre><code class="language-html">&lt;style&gt;
-.image-container {
-  display: flex;
-}
-.image-container img {
-  width: 25%; /* 4枚で100% */
-}
-&lt;/style&gt;
-
-&lt;div class=&quot;image-container&quot;&gt;
-  &lt;img src=&quot;../img/daisy1.jpg&quot; alt=&quot;画像1&quot;&gt;
-  &lt;img src=&quot;../img/daisy2.jpg&quot; alt=&quot;画像2&quot;&gt;
-  &lt;img src=&quot;../img/daisy3.jpg&quot; alt=&quot;画像3&quot;&gt;
-  &lt;img src=&quot;../img/daisy4.jpg&quot; alt=&quot;画像4&quot;&gt;
-&lt;/div&gt;
+                <h1 id="_1">基本的な処理の流れ</h1>
+<p>Web サイトを GitHub Pages で公開するまでの流れ。</p>
+<p>本サイトの作成過程を例にする。</p>
+<h3 id="1">1. プロジェクト名を決める</h3>
+<p>目標は、<strong>GitHub ページに「MkDocsの使い方」というサイトを作ること</strong> 。</p>
+<p>プロジェクト名を <strong>mkd</strong> とする。 </p>
+<h3 id="2">2. プロジェクトの新規作成</h3>
+<p><code>mkdocs new</code> コマンドで、プロジェクトを新規作成する。</p>
+<pre><code class="language-batch">mkdocs new mkd
+↓
+INFO    -  Creating project directory: mkd
+INFO    -  Writing config file: mkd\mkdocs.yml
+INFO    -  Writing initial docs: mkd\docs\index.md
 </code></pre>
-<style>
-.image-container {
-  display: flex;
-}
-.image-container img {
-  width: 25%; /* 4枚で100% */
-}
-</style>
-
-<div class="image-container">
-  <img src="../img/daisy1.jpg" alt="画像1">
-  <img src="../img/daisy2.jpg" alt="画像2">
-  <img src="../img/daisy3.jpg" alt="画像3">
-  <img src="../img/daisy4.jpg" alt="画像1">
-</div>
-
-<p><br></p>
+<p>作成されたディレクトリに移動する。</p>
+<pre><code class="language-batch">cd mkd
+</code></pre>
+<h3 id="3">3. ローカルサーバーを起動する</h3>
+<p>MkDocs のイト作成は、ローカル Web サーバー上で
+実際にサイトの表示や動きを確認しながら進めていく。</p>
+<p>まず <code>mkdocs serve</code> コマンドでサーバーを起動する。</p>
+<pre><code class="language-batch">mkdocs serve
+↓
+INFO    -  Building documentation...
+INFO    -  Cleaning site directory
+INFO    -  Documentation built in 0.13 seconds
+INFO    -  [23:48:06] Watching paths for changes: 'docs', 'mkdocs.yml'
+INFO    -  [23:48:06] Serving on http://127.0.0.1:8000/
+</code></pre>
+<p>サーバー稼働中はキーボードは反応しないが
+<strong>[Ctrl]+[C]</strong> で止めることはできる。</p>
+<p>サーバーが動くとブラウザで <strong><a href="http://localhost:8000/">http://localhost:8000/</a></strong> にアクセスできる。
+最初はデフォルトのトップページ「Welcome to MkDocs」が表示されるはずだ。 </p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="フッターナビゲーション">
-        <a href="../workflow/" class="btn btn-neutral float-left" title="基本的な処理の流れ"><span class="icon icon-circle-arrow-left"></span> 前へ</a>
-        <a href="../style/" class="btn btn-neutral float-right" title="現在の style.css">次へ <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../settings/" class="btn btn-neutral float-left" title="初期設定"><span class="icon icon-circle-arrow-left"></span> 前へ</a>
+        <a href="../image/" class="btn btn-neutral float-right" title="画像の表示方法">次へ <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -178,10 +156,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../workflow/" style="color: #fcfcfc">&laquo; 前へ</a></span>
+      <span><a href="../settings/" style="color: #fcfcfc">&laquo; 前へ</a></span>
     
     
-      <span><a href="../style/" style="color: #fcfcfc">次へ &raquo;</a></span>
+      <span><a href="../image/" style="color: #fcfcfc">次へ &raquo;</a></span>
     
   </span>
 </div>
