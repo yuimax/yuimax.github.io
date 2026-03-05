@@ -24,7 +24,7 @@ if (!$runID) {
 Write-Host "`nワークフロー (ID: $runID) を監視中..." -ForegroundColor Magenta
 gh run watch $runID
 
-# 終了をアナウンスする
+# 終了メッセージを表示する
 if ($runID) {
 	$conclusion = gh run view $runID --json conclusion --jq '.conclusion'
 	if ($conclusion -eq "success") {
@@ -38,12 +38,13 @@ if ($runID) {
 	$text = "mainブランチに実行中のrunが見つかりませんでした。"
 	$color = "Red";
 }
-
 Write-Host "`n$text" -ForegroundColor $color;
+
+# 終了メッセージをWindowsのSpeechSynthesizerにしゃべらせる
 Add-Type -AssemblyName System.Speech;
 $voice = New-Object System.Speech.Synthesis.SpeechSynthesizer;
 $voice.Volume = 100;
-$voice.Rate = 1;
+$voice.Rate = -3;
 $voice.Speak($text);
 
 
