@@ -25,17 +25,12 @@ Write-Host "`nワークフロー (ID: $runID) を監視中..." -ForegroundColor 
 gh run watch $runID
 
 # 終了メッセージを表示する
-if ($runID) {
-	$conclusion = gh run view $runID --json conclusion --jq '.conclusion'
-	if ($conclusion -eq "success") {
-		$text = "お待たせしました。JOB が完了しました。";
-		$color = "Green";
-	} else {
-		$text = "`n処理が失敗しました (Result: $conclusion)";
-		$color = "Red";
-	}
+$conclusion = gh run view $runID --json conclusion --jq '.conclusion'
+if ($conclusion -eq "success") {
+	$text = "お待たせしました。JOB が完了しました。";
+	$color = "Green";
 } else {
-	$text = "mainブランチに実行中のrunが見つかりませんでした。"
+	$text = "`n処理が失敗しました (Result: $conclusion)";
 	$color = "Red";
 }
 Write-Host "`n$text" -ForegroundColor $color;
