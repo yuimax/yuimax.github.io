@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html class="no-js" lang="ja">
+<head><script src="/win32api/livereload.js?mindelay=10&amp;v=2&amp;port=62977&amp;path=win32api/livereload" data-no-instant defer></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>001-MainWindow - win32api-progs</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/win32api/css/style.css">
+	<link rel="stylesheet" href="/win32api/css/custom.css">
+
+	<link rel="shortcut icon" href="/win32api/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/win32api/" title="win32api-progs" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">win32api-progs</div>
+					
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">001-MainWindow</h1>
+			
+		</header>
+		<div class="content post__content clearfix">
+			<ul>
+<li>ウィンドウ表示の基本形</li>
+<li>サンプルコード＞ <a href="https://github.com/yuimax/win32api-progs/blob/main/001-MainWindow/001-MainWindow.cpp" target="_blank" rel="noopener noreferrer">001-MainWindow/001-MainWindow.cpp</a>
+</li>
+</ul>
+<hr>
+<h2 id="ウィンドウクラスの登録">ウィンドウクラスの登録</h2>
+<p>すべてのウィンドウは <strong>ウィンドウクラス</strong> に属している。
+たとえば BUTTON や EDIT など既存の GUI 部品も、専用のウィンドウクラスを利用することで、それぞれの動作を実現している。</p>
+<ul>
+<li>解説＞
+<a href="https://learn.microsoft.com/ja-jp/windows/win32/winmsg/about-window-classes" target="_blank" rel="noopener noreferrer">ウィンドウクラスについて</a>
+
+【<a href="https://learn.microsoft.com/en-us/windows/win32/winmsg/about-window-classes" target="_blank" rel="noopener noreferrer">英語版</a>
+】</li>
+<li>解説＞
+<a href="https://learn.microsoft.com/ja-jp/windows/win32/winmsg/about-window-classes" target="_blank" rel="noopener noreferrer">ウィンドウクラスの利用</a>
+
+【<a href="https://learn.microsoft.com/en-us/windows/win32/winmsg/about-window-classes" target="_blank" rel="noopener noreferrer">英語版</a>
+】</li>
+<li>解説＞
+<a href="https://learn.microsoft.com/ja-jp/windows/win32/winmsg/window-class-reference" target="_blank" rel="noopener noreferrer">ウィンドウクラス仕様書</a>
+
+【<a href="https://learn.microsoft.com/en-us/windows/win32/winmsg/window-class-reference" target="_blank" rel="noopener noreferrer">英語版</a>
+】</li>
+</ul>
+<p>自作アプリのメインウィンドウは、まず自分のウィンドウクラスを登録する必要がある。</p>
+<h3 id="コード">コード</h3>
+<p>ウィンドウクラスを登録する部分のコードを次に示す。<!-- raw HTML omitted -->
+<strong><code>WNDCLASSEX</code></strong> 構造体でパラメータを設定し、<strong><code>RegisterClassEx()</code></strong> で実際に登録する。</p>
+<pre tabindex="0"><code>WNDCLASSEX wcex = { sizeof(WNDCLASSEX) }; // 先頭要素のみ指定、残りを0で埋める
+
+wcex.style = CS_HREDRAW | CS_VREDRAW; // (1)
+wcex.lpfnWndProc = WndProc;           // (2)
+wcex.hInstance = hInstance;           // (3)
+wcex.lpszClassName = WindowClassName; // (4)
+
+return RegisterClassEx(&amp;wcex);
+</code></pre><h3 id="1-wcexstyle">(1) wcex.style</h3>
+<p>下記のスタイルを組み合わせて指定する。
+<strong><a href="https://learn.microsoft.com/en-us/windows/win32/winmsg/window-class-styles" target="_blank" rel="noopener noreferrer">その他のスタイル</a>
+</strong>
+もあるが、どれも Windows XP 以前のレガシーであり、現代のマシンではまあ不用といってよい。</p>
+<ul>
+<li><strong>CS_HREDRAW</strong><br>
+幅が変更されたら画面を再描画する。</li>
+<li><strong>CS_VREDRAW</strong><br>
+高さが変更されたら画面を再描画する。</li>
+<li><strong>CS_DBLCLKS</strong><br>
+ダブルクリックを検出できるようにする。</li>
+<li><strong>CS_NOCLOSE</strong><br>
+タイトルバーの「×」ボタン、システムメニューの「閉じる(C)」、Alt+F4 キーによるアプリ終了を禁止する。</li>
+</ul>
+<h3 id="2-wcexlpfnwndproc">(2) wcex.lpfnWndProc</h3>
+<p>各種ウィンドウメッセージを処理するための関数。
+ここではソースコード内の WndProc() 関数を指定している。
+関数名はなんでもよいが、慣例として WndProc という名前を使う。</p>
+<h3 id="3-wcexhinstance">(3) wcex.hInstance</h3>
+<p>実行中のアプリ自身を示すハンドルを指定する。
+これを登録することで、システムがアプリの内部データにアクセスしたり、複数起動した同じアプリを識別できるようになる。</p>
+<h3 id="4-wcexlpszclassname">(4) wcex.lpszClassName</h3>
+<p>メインウィンドウが使うウィンドウクラスの名前。
+同じプロジェクトの中で別のウィンドウと重複しなければ、なんでもよい。</p>
+<h3 id="上記以外のメンバ">上記以外のメンバ</h3>
+<p>他にもいろいろあるが、今後プログラムで必要になったとき説明を書く。</p>
+<hr>
+<h2 id="ウィンドウの作成">ウィンドウの作成</h2>
+<p>ウィンドウは Win32API の <a href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-createwindowexw" target="_blank" rel="noopener noreferrer">CreateWindowEx</a>
+ で作成する。</p>
+<h3 id="win32api-の-a-型と-w-型について">Win32API の A 型と W 型について</h3>
+<p>Win32API には、A 型と W 型が存在する場合がある。<!-- raw HTML omitted -->
+CreateWindowEx も <strong>CreateWindowExA</strong> と、<strong>CreateWindowExW</strong> の2つがある。</p>
+<p>両者の違いは文字列引数の文字コードである。</p>
+<ul>
+<li>A 型は、文字列引数を <strong>Shift_JIS の 通常文字列</strong>（例：<code>&quot;テスト&quot;</code>）で指定する。</li>
+<li>W 型は、文字列引数を <strong>UTF-16LE のワイド文字列</strong>（例： <code>L&quot;テスト&quot;</code>）で指定する。</li>
+</ul>
+<p>最近のソースコードは UTF-8 で書かれることが多いため、Shift_JIS を要求する A 型の API は使いにくい。
+そこで Visual C++ では、デフォルトで W 型の API を使うようになっている。</p>
+<p>たとえばソースコードに CreateWindowEx と書くと、実際には <strong>CreateWindowExW</strong> が呼び出される。
+これに準じて本サイトでは、API が本来 W 型でも名前の最後に &ldquo;W&rdquo; をつけない。</p>
+<h3 id="コード-1">コード</h3>
+<pre tabindex="0"><code>HWND hWnd = CreateWindowEx(
+  0,                    // (1) dwExStyle
+  WindowClassName,      // (2) lpClassName
+  WindowTitle,          // (3) lpWindowName
+  WS_OVERLAPPEDWINDOW,  // (4) dwStyle
+  CW_USEDEFAULT,        // (5) X
+  CW_USEDEFAULT,        // (6) Y
+  INIT_WINDOW_WIDTH,    // (7) nWidth
+  INIT_WINDOW_HEIGHT,   // (8) nHeight
+  nullptr,              // (9) hWndParent
+  nullptr,              // (10) hMenu
+  hInstance,            // (11) hInstance
+  nullptr               // (12) lpParam
+);
+</code></pre><hr>
+<h2 id="メッセージループ">メッセージループ</h2>
+<hr>
+<h2 id="wndprocでメッセージ処理">WndProcでメッセージ処理</h2>
+<ul>
+<li>WM_PAINT</li>
+<li>WM_SETCURSOR</li>
+<li>WM_DESTROY</li>
+</ul>
+<hr>
+<h2 id="ユーティリティ関数">ユーティリティ関数</h2>
+<p>プロジェクト内の <strong>utils.h</strong> と <strong>utils.cpp</strong> にいくつか便利な関数を置いている。</p>
+<ul>
+<li><a href="https://github.com/yuimax/win32api-progs/blob/main/001-MainWindow/utils.h" target="_blank" rel="noopener noreferrer">001-MainWindow/utils.h</a>
+</li>
+<li><a href="https://github.com/yuimax/win32api-progs/blob/main/001-MainWindow/utils.cpp" target="_blank" rel="noopener noreferrer">001-MainWindow/utils.cpp</a>
+</li>
+</ul>
+<p>今回定義した関数を次に示す。
+今後プログラムで必要になるたびに関数を追加していく。</p>
+<ul>
+<li><strong>void MyTextOut(HDC hdc, int x, int y, const WCHAR* wstr);</strong><br>
+// ウィンドウの座標 (x, y) にテキストを表示する。<br>
+// テキストには改行 &ldquo;\n&rdquo; を含めることができる。<br>
+// Win32API を利用する関係で、テキストはワイド文字列（L&quot;&hellip;&quot;）で指定する。<br>
+// 次回の 002-Encoding で、UTF-8 の通常文字列が使えるように拡張する予定。</li>
+</ul>
+
+		</div>
+	</article>
+</main>
+
+
+
+
+			</div>
+			<aside class="sidebar sidebar--left">
+<div class="widget-recent widget">
+	<h4 class="widget__title">最近の投稿</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/win32api/posts/001-mainwindow/">001-MainWindow</a></li>
+		</ul>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2026 win32api-progs.
+			<span class="footer__copyright-credits">このサイトは <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> と <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> テーマで生成されています。</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/win32api/js/menu.js"></script>
+</body>
+</html>

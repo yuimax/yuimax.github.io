@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Posts on win32api-progs</title>
+		<link>http://localhost:62977/win32api/posts/</link>
+		<description>Recent content in Posts on win32api-progs</description>
+		<generator>Hugo</generator>
+		<language>ja-jp</language>
+		
+		
+		
+		
+			<lastBuildDate>Tue, 22 Sep 2026 09:00:00 +0900</lastBuildDate>
+		
+			<atom:link href="http://localhost:62977/win32api/posts/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>001-MainWindow</title>
+				<link>http://localhost:62977/win32api/posts/001-mainwindow/</link>
+				<pubDate>Tue, 22 Sep 2026 09:00:00 +0900</pubDate>
+				<guid>http://localhost:62977/win32api/posts/001-mainwindow/</guid>
+				<description>&lt;ul&gt;&#xA;&lt;li&gt;ウィンドウ表示の基本形&lt;/li&gt;&#xA;&lt;li&gt;サンプルコード＞ &lt;a href=&#34;https://github.com/yuimax/win32api-progs/blob/main/001-MainWindow/001-MainWindow.cpp&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;001-MainWindow/001-MainWindow.cpp&lt;/a&gt;&#xD;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;ウィンドウクラスの登録&#34;&gt;ウィンドウクラスの登録&lt;/h2&gt;&#xA;&lt;p&gt;すべてのウィンドウは &lt;strong&gt;ウィンドウクラス&lt;/strong&gt; に属している。&#xA;たとえば BUTTON や EDIT など既存の GUI 部品も、専用のウィンドウクラスを利用することで、それぞれの動作を実現している。&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;解説＞&#xA;&lt;a href=&#34;https://learn.microsoft.com/ja-jp/windows/win32/winmsg/about-window-classes&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;ウィンドウクラスについて&lt;/a&gt;&#xD;&#xA;&#xA;【&lt;a href=&#34;https://learn.microsoft.com/en-us/windows/win32/winmsg/about-window-classes&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;英語版&lt;/a&gt;&#xD;&#xA;】&lt;/li&gt;&#xA;&lt;li&gt;解説＞&#xA;&lt;a href=&#34;https://learn.microsoft.com/ja-jp/windows/win32/winmsg/about-window-classes&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;ウィンドウクラスの利用&lt;/a&gt;&#xD;&#xA;&#xA;【&lt;a href=&#34;https://learn.microsoft.com/en-us/windows/win32/winmsg/about-window-classes&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;英語版&lt;/a&gt;&#xD;&#xA;】&lt;/li&gt;&#xA;&lt;li&gt;解説＞&#xA;&lt;a href=&#34;https://learn.microsoft.com/ja-jp/windows/win32/winmsg/window-class-reference&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;ウィンドウクラス仕様書&lt;/a&gt;&#xD;&#xA;&#xA;【&lt;a href=&#34;https://learn.microsoft.com/en-us/windows/win32/winmsg/window-class-reference&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;英語版&lt;/a&gt;&#xD;&#xA;】&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;自作アプリのメインウィンドウは、まず自分のウィンドウクラスを登録する必要がある。&lt;/p&gt;&#xA;&lt;h3 id=&#34;コード&#34;&gt;コード&lt;/h3&gt;&#xA;&lt;p&gt;ウィンドウクラスを登録する部分のコードを次に示す。&lt;!-- raw HTML omitted --&gt;&#xA;&lt;strong&gt;&lt;code&gt;WNDCLASSEX&lt;/code&gt;&lt;/strong&gt; 構造体でパラメータを設定し、&lt;strong&gt;&lt;code&gt;RegisterClassEx()&lt;/code&gt;&lt;/strong&gt; で実際に登録する。&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;WNDCLASSEX wcex = { sizeof(WNDCLASSEX) }; // 先頭要素のみ指定、残りを0で埋める&#xA;&#xA;wcex.style = CS_HREDRAW | CS_VREDRAW; // (1)&#xA;wcex.lpfnWndProc = WndProc;           // (2)&#xA;wcex.hInstance = hInstance;           // (3)&#xA;wcex.lpszClassName = WindowClassName; // (4)&#xA;&#xA;return RegisterClassEx(&amp;amp;wcex);&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;1-wcexstyle&#34;&gt;(1) wcex.style&lt;/h3&gt;&#xA;&lt;p&gt;下記のスタイルを組み合わせて指定する。&#xA;&lt;strong&gt;&lt;a href=&#34;https://learn.microsoft.com/en-us/windows/win32/winmsg/window-class-styles&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;その他のスタイル&lt;/a&gt;&#xD;&#xA;&lt;/strong&gt;&#xA;もあるが、どれも Windows XP 以前のレガシーであり、現代のマシンではまあ不用といってよい。&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

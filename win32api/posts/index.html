@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html class="no-js" lang="ja">
+<head><script src="/win32api/livereload.js?mindelay=10&amp;v=2&amp;port=62977&amp;path=win32api/livereload" data-no-instant defer></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Posts - win32api-progs</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/win32api/css/style.css">
+	<link rel="stylesheet" href="/win32api/css/custom.css">
+	<link rel="alternate" type="application/rss+xml" href="/win32api/posts/index.xml" title="win32api-progs">
+
+	<link rel="shortcut icon" href="/win32api/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/win32api/" title="win32api-progs" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">win32api-progs</div>
+					
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main list" role="main">
+	<header class="main__header">
+		<h1 class="main__title">Posts</h1>
+	</header><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
+			<a href="/win32api/posts/001-mainwindow/" rel="bookmark">
+			001-MainWindow
+			</a>
+		</h2>
+		
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		<ul>
+<li>ウィンドウ表示の基本形</li>
+<li>サンプルコード＞ <a href="https://github.com/yuimax/win32api-progs/blob/main/001-MainWindow/001-MainWindow.cpp" target="_blank" rel="noopener noreferrer">001-MainWindow/001-MainWindow.cpp</a>
+</li>
+</ul>
+<hr>
+<h2 id="ウィンドウクラスの登録">ウィンドウクラスの登録</h2>
+<p>すべてのウィンドウは <strong>ウィンドウクラス</strong> に属している。
+たとえば BUTTON や EDIT など既存の GUI 部品も、専用のウィンドウクラスを利用することで、それぞれの動作を実現している。</p>
+<ul>
+<li>解説＞
+<a href="https://learn.microsoft.com/ja-jp/windows/win32/winmsg/about-window-classes" target="_blank" rel="noopener noreferrer">ウィンドウクラスについて</a>
+
+【<a href="https://learn.microsoft.com/en-us/windows/win32/winmsg/about-window-classes" target="_blank" rel="noopener noreferrer">英語版</a>
+】</li>
+<li>解説＞
+<a href="https://learn.microsoft.com/ja-jp/windows/win32/winmsg/about-window-classes" target="_blank" rel="noopener noreferrer">ウィンドウクラスの利用</a>
+
+【<a href="https://learn.microsoft.com/en-us/windows/win32/winmsg/about-window-classes" target="_blank" rel="noopener noreferrer">英語版</a>
+】</li>
+<li>解説＞
+<a href="https://learn.microsoft.com/ja-jp/windows/win32/winmsg/window-class-reference" target="_blank" rel="noopener noreferrer">ウィンドウクラス仕様書</a>
+
+【<a href="https://learn.microsoft.com/en-us/windows/win32/winmsg/window-class-reference" target="_blank" rel="noopener noreferrer">英語版</a>
+】</li>
+</ul>
+<p>自作アプリのメインウィンドウは、まず自分のウィンドウクラスを登録する必要がある。</p>
+<h3 id="コード">コード</h3>
+<p>ウィンドウクラスを登録する部分のコードを次に示す。<!-- raw HTML omitted -->
+<strong><code>WNDCLASSEX</code></strong> 構造体でパラメータを設定し、<strong><code>RegisterClassEx()</code></strong> で実際に登録する。</p>
+<pre tabindex="0"><code>WNDCLASSEX wcex = { sizeof(WNDCLASSEX) }; // 先頭要素のみ指定、残りを0で埋める
+
+wcex.style = CS_HREDRAW | CS_VREDRAW; // (1)
+wcex.lpfnWndProc = WndProc;           // (2)
+wcex.hInstance = hInstance;           // (3)
+wcex.lpszClassName = WindowClassName; // (4)
+
+return RegisterClassEx(&amp;wcex);
+</code></pre><h3 id="1-wcexstyle">(1) wcex.style</h3>
+<p>下記のスタイルを組み合わせて指定する。
+<strong><a href="https://learn.microsoft.com/en-us/windows/win32/winmsg/window-class-styles" target="_blank" rel="noopener noreferrer">その他のスタイル</a>
+</strong>
+もあるが、どれも Windows XP 以前のレガシーであり、現代のマシンではまあ不用といってよい。</p>
+	</div>
+</article>
+</main>
+
+
+			</div>
+			
+<aside class="sidebar sidebar--left">
+<div class="widget-recent widget">
+	<h4 class="widget__title">最近の投稿</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/win32api/posts/001-mainwindow/">001-MainWindow</a></li>
+		</ul>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2026 win32api-progs.
+			<span class="footer__copyright-credits">このサイトは <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> と <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> テーマで生成されています。</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/win32api/js/menu.js"></script>
+</body>
+</html>

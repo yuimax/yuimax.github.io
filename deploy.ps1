@@ -39,7 +39,5 @@ Write-Host "`n$text" -ForegroundColor $color;
 Add-Type -AssemblyName System.Speech;
 $voice = New-Object System.Speech.Synthesis.SpeechSynthesizer;
 $voice.Volume = 100;
-$voice.Rate = -3;
+$voice.Rate = -1;
 $voice.Speak($text);
-
-
