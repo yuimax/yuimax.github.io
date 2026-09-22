@@ -4,19 +4,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="head-title">title</title>
-	<style>
+    <style>
       #main { margin: 16px; }
-	</style>
+    </style>
   </head>
   <body>
     <div id="main">
-	  <div id="body-title">title</div>
+      <div id="body-title">title</div>
       <p>ここをキャンプ地とする</p>
-	</div>
+      <p>ここは
+        <a href="https://yuimax.github.io">https://yuimax.github.io</a>
+        です。
+      </p>
+    </div>
     <script>
-	  const title = location.protocol + '//' + location.host + location.pathname;
-	  document.getElementById('head-title').textContent = title;
-	  document.getElementById('body-title').textContent = title;
-	</script>
+      const title = location.protocol + '//' + location.host + location.pathname;
+      document.getElementById('head-title').textContent = title;
+      document.getElementById('body-title').textContent = title;
+    </script>
   </body>
 </html>
