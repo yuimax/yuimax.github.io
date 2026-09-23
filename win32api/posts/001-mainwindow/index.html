@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="no-js" lang="ja">
-<head><script src="/win32api/livereload.js?mindelay=10&amp;v=2&amp;port=62977&amp;path=win32api/livereload" data-no-instant defer></script>
+<head><script src="/win32api/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=win32api/livereload" data-no-instant defer></script>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>001-MainWindow - win32api-progs</title>
@@ -71,7 +71,7 @@
 </ul>
 <p>自作アプリのメインウィンドウは、まず自分のウィンドウクラスを登録する必要がある。</p>
 <h3 id="コード">コード</h3>
-<p>ウィンドウクラスを登録する部分のコードを次に示す。<!-- raw HTML omitted -->
+<p>ウィンドウクラスを登録する部分のコードを次に示す。<br>
 <strong><code>WNDCLASSEX</code></strong> 構造体でパラメータを設定し、<strong><code>RegisterClassEx()</code></strong> で実際に登録する。</p>
 <pre tabindex="0"><code>WNDCLASSEX wcex = { sizeof(WNDCLASSEX) }; // 先頭要素のみ指定、残りを0で埋める
 
@@ -96,6 +96,18 @@ return RegisterClassEx(&amp;wcex);
 <li><strong>CS_NOCLOSE</strong><br>
 タイトルバーの「×」ボタン、システムメニューの「閉じる(C)」、Alt+F4 キーによるアプリ終了を禁止する。</li>
 </ul>
+<p>{{*/</p>
+<ul>
+<li><strong>CS_OWNDC</strong>\ ウィンドウごとに固有のDCを1つ作成し永続保持する。GetDC() を呼び出すたびに同じDCのハンドルが返される。フォントやペンなどを毎回作り直さなくてよい。</li>
+<li><strong>CS_CLASSDC</strong>\ 同じクラスから生成された全ウィンドウでDCを共有する。マルチスレッド非対応のため現代では非推奨。</li>
+<li><strong>CS_PARENTDC</strong>\ 親ウィンドウのDCを借りて描画。ボタン等のコントロールが高速描画のため利用する。親ウィンドウにも描画できてしまうので注意。</li>
+<li><strong>CS_SAVEBITS</strong>\ ウィンドウの背景に隠れる部分をビットマップとしてシステムが保存する。旧時代の高速描画に使われたもので、現代では無意味。</li>
+<li><strong>CS_BYTEALIGNCLIENT</strong>\ ウィンドウのX座標をバイト境界（8の倍数）に制限する。旧時代の高速描画に使われたもので、現代では無意味、むしろ有害。</li>
+<li><strong>CS_BYTEALIGNWINDOW</strong>\ クライアント領域のX座標をバイト境界（8の倍数）に制限する。旧時代の高速描画に使われたもので、現代では無意味、むしろ有害。</li>
+<li><strong>CS_GLOBALCLASS</strong>\ カスタムコントロールなどが内部的に利用する。</li>
+<li><strong>CS_DROPSHADOW</strong>\ ウィンドウの周囲に影をつける。Windows XP 時代に追加されたスタイルだが、現在では別の方法で影を付けるため使われない。
+*/}}</li>
+</ul>
 <h3 id="2-wcexlpfnwndproc">(2) wcex.lpfnWndProc</h3>
 <p>各種ウィンドウメッセージを処理するための関数。
 ここではソースコード内の WndProc() 関数を指定している。
@@ -113,7 +125,7 @@ return RegisterClassEx(&amp;wcex);
 <p>ウィンドウは Win32API の <a href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-createwindowexw" target="_blank" rel="noopener noreferrer">CreateWindowEx</a>
  で作成する。</p>
 <h3 id="win32api-の-a-型と-w-型について">Win32API の A 型と W 型について</h3>
-<p>Win32API には、A 型と W 型が存在する場合がある。<!-- raw HTML omitted -->
+<p>Win32API には、A 型と W 型が存在する場合がある。<br>
 CreateWindowEx も <strong>CreateWindowExA</strong> と、<strong>CreateWindowExW</strong> の2つがある。</p>
 <p>両者の違いは文字列引数の文字コードである。</p>
 <ul>
@@ -181,6 +193,7 @@ CreateWindowEx も <strong>CreateWindowExA</strong> と、<strong>CreateWindowEx
 	<div class="widget__content">
 		<ul class="widget__list">
 			<li class="widget__item"><a class="widget__link" href="/win32api/posts/001-mainwindow/">001-MainWindow</a></li>
+			<li class="widget__item"><a class="widget__link" href="/win32api/posts/999-howtohugo/">999-HowToHugo</a></li>
 		</ul>
 	</div>
 </div>

@@ -3,7 +3,7 @@
 <head><script src="/win32api/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=win32api/livereload" data-no-instant defer></script>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Posts - win32api-progs</title>
+	<title>999-HowToHugo - win32api-progs</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +13,6 @@
 
 	<link rel="stylesheet" href="/win32api/css/style.css">
 	<link rel="stylesheet" href="/win32api/css/custom.css">
-	<link rel="alternate" type="application/rss+xml" href="/win32api/posts/index.xml" title="win32api-progs">
 
 	<link rel="shortcut icon" href="/win32api/favicon.ico">
 		
@@ -37,76 +36,14 @@
 		<div class="wrapper flex">
 			<div class="primary">
 			
-<main class="main list" role="main">
-	<header class="main__header">
-		<h1 class="main__title">Posts</h1>
-	</header><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/win32api/posts/001-mainwindow/" rel="bookmark">
-			001-MainWindow
-			</a>
-		</h2>
-		
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		<ul>
-<li>ウィンドウ表示の基本形</li>
-<li>サンプルコード＞ <a href="https://github.com/yuimax/win32api-progs/blob/main/001-MainWindow/001-MainWindow.cpp" target="_blank" rel="noopener noreferrer">001-MainWindow/001-MainWindow.cpp</a>
-</li>
-</ul>
-<hr>
-<h2 id="ウィンドウクラスの登録">ウィンドウクラスの登録</h2>
-<p>すべてのウィンドウは <strong>ウィンドウクラス</strong> に属している。
-たとえば BUTTON や EDIT など既存の GUI 部品も、専用のウィンドウクラスを利用することで、それぞれの動作を実現している。</p>
-<ul>
-<li>解説＞
-<a href="https://learn.microsoft.com/ja-jp/windows/win32/winmsg/about-window-classes" target="_blank" rel="noopener noreferrer">ウィンドウクラスについて</a>
-
-【<a href="https://learn.microsoft.com/en-us/windows/win32/winmsg/about-window-classes" target="_blank" rel="noopener noreferrer">英語版</a>
-】</li>
-<li>解説＞
-<a href="https://learn.microsoft.com/ja-jp/windows/win32/winmsg/about-window-classes" target="_blank" rel="noopener noreferrer">ウィンドウクラスの利用</a>
-
-【<a href="https://learn.microsoft.com/en-us/windows/win32/winmsg/about-window-classes" target="_blank" rel="noopener noreferrer">英語版</a>
-】</li>
-<li>解説＞
-<a href="https://learn.microsoft.com/ja-jp/windows/win32/winmsg/window-class-reference" target="_blank" rel="noopener noreferrer">ウィンドウクラス仕様書</a>
-
-【<a href="https://learn.microsoft.com/en-us/windows/win32/winmsg/window-class-reference" target="_blank" rel="noopener noreferrer">英語版</a>
-】</li>
-</ul>
-<p>自作アプリのメインウィンドウは、まず自分のウィンドウクラスを登録する必要がある。</p>
-<h3 id="コード">コード</h3>
-<p>ウィンドウクラスを登録する部分のコードを次に示す。<br>
-<strong><code>WNDCLASSEX</code></strong> 構造体でパラメータを設定し、<strong><code>RegisterClassEx()</code></strong> で実際に登録する。</p>
-<pre tabindex="0"><code>WNDCLASSEX wcex = { sizeof(WNDCLASSEX) }; // 先頭要素のみ指定、残りを0で埋める
-
-wcex.style = CS_HREDRAW | CS_VREDRAW; // (1)
-wcex.lpfnWndProc = WndProc;           // (2)
-wcex.hInstance = hInstance;           // (3)
-wcex.lpszClassName = WindowClassName; // (4)
-
-return RegisterClassEx(&amp;wcex);
-</code></pre><h3 id="1-wcexstyle">(1) wcex.style</h3>
-<p>下記のスタイルを組み合わせて指定する。
-<strong><a href="https://learn.microsoft.com/en-us/windows/win32/winmsg/window-class-styles" target="_blank" rel="noopener noreferrer">その他のスタイル</a>
-</strong>
-もあるが、どれも Windows XP 以前のレガシーであり、現代のマシンではまあ不用といってよい。</p>
-	</div>
-</article><article class="list__item post">
-	
-	<header class="list__header">
-		<h2 class="list__title post__title">
-			<a href="/win32api/posts/999-howtohugo/" rel="bookmark">
-			999-HowToHugo
-			</a>
-		</h2>
-		
-	</header>
-	<div class="content list__excerpt post__content clearfix">
-		<p>Windows に Hugo をインストールし、GitHub Pages にサイトを作るまでの手順。</p>
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">999-HowToHugo</h1>
+			
+		</header>
+		<div class="content post__content clearfix">
+			<p>Windows に Hugo をインストールし、GitHub Pages にサイトを作るまでの手順。</p>
 <h2 id="方法は2つある">方法は2つある</h2>
 <p>Hugo で GitHub Pages を作る方法は2つある。</p>
 <ul>
@@ -137,24 +74,124 @@ return RegisterClassEx(&amp;wcex);
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>hugo new site win32api-progs
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> win32api-progs
 </span></span></code></pre></div></li>
+<li>設定ファイルを用意する。<br>
+プロジェクトのルートに <strong><code>hugo.toml</code></strong> という設定ファイルを作る。
+<pre tabindex="0"><code># ./hugo.toml
+baseURL = &#39;https://doc.yuimax.org/win32api/&#39;
+title = &#39;win32api-progs&#39;
+</code></pre></li>
 <li>画面テーマをインストールする。<br>
 <code>git init</code> でプロジェクトをリポジトリ化し、<code>git submodule</code> でテーマを入れる。<br>
 今回は <strong>Mainroad</strong> というテーマを選んだ。サイドバーが作りやすいらしい。
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>git init
 </span></span><span style="display:flex;"><span>git submodule add https://github.com/vimux/mainroad.git themes/mainroad
 </span></span></code></pre></div></li>
+<li>設定ファイルにテーマを登録する。<br>
+<code>hugo.toml</code> にテーマ名と言語設定を追加する。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>theme = &#39;mainroad&#39;
+</span></span><span style="display:flex;"><span>locale = &#39;ja-jp&#39;
+</span></span><span style="display:flex;"><span>defaultContentLanguage = &#39;ja&#39;
+</span></span></code></pre></div></li>
 </ol>
 <h2 id="レンダーフックのインストール">レンダーフックのインストール</h2>
 <p>レンダーフックとは、Hugo に機能を追加するプラグインのようなものである。<br>
 現在は次のレンダーフックを登録している。</p>
-	</div>
-</article>
+<ul>
+<li><a href="#%e3%82%b3%e3%83%bc%e3%83%89%e3%83%96%e3%83%ad%e3%83%83%e3%82%af%e3%81%ab-copy-%e3%83%9c%e3%82%bf%e3%83%b3%e3%82%92%e8%bf%bd%e5%8a%a0">コードブロックに COPY ボタンを追加</a>
+</li>
+<li><a href="#%e7%94%bb%e5%83%8f%e3%82%bf%e3%82%b0%e3%81%ab%e3%82%b5%e3%82%a4%e3%82%ba%e6%8c%87%e5%ae%9a%e6%a9%9f%e8%83%bd%e3%82%92%e8%bf%bd%e5%8a%a0">画像タグにサイズ指定機能を追加</a>
+</li>
+</ul>
+<h3 id="コードブロックに-copy-ボタンを追加">コードブロックに COPY ボタンを追加</h3>
+<ol>
+<li>
+<p>ファイル <code>layouts/_default/_markup/render-codeblock.html</code> を作り下記を設定する。</p>
+<pre tabindex="0"><code>&lt;div class=&#34;code-block-wrapper&#34;&gt;
+  &lt;div class=&#34;code-block-header&#34;&gt;
+	&lt;span class=&#34;code-lang&#34;&gt;{{ .Type | default &#34;text&#34; }}&lt;/span&gt;
+	&lt;button class=&#34;copy-button&#34; aria-label=&#34;Copy code&#34;&gt;Copy&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;pre&gt;&lt;code class=&#34;language-{{ .Type }}&#34;&gt;{{ .Inner }}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</code></pre></li>
+<li>
+<p>CSS を追加する。</p>
+<pre tabindex="0"><code>.code-block-wrapper {
+  position: relative;
+  margin: 1em 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #282c34; /* 使用中のテーマに合わせて調整 */
+}
+
+.code-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #21252b;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  color: #abb2bf;
+}
+
+.copy-button {
+  background: #3e4451;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.2rem 0.6rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background 0.2s;
+}
+
+.copy-button:hover {
+  background: #4b5263;
+}
+
+.copy-button.copied {
+  background: #98c379;
+  color: #1e1e1e;
+}
+</code></pre></li>
+<li>
+<p>ファイル <code>baseof.html</code> の末尾に次の JavaScript を追加する。</p>
+<pre tabindex="0"><code>document.addEventListener(&#39;DOMContentLoaded&#39;, () =&gt; {
+  document.querySelectorAll(&#39;.copy-button&#39;).forEach(button =&gt; {
+	button.addEventListener(&#39;click&#39;, async () =&gt; {
+	  const wrapper = button.closest(&#39;.code-block-wrapper&#39;);
+	  const code = wrapper.querySelector(&#39;code&#39;).innerText;
+
+	  try {
+		await navigator.clipboard.writeText(code);
+
+		// フィードバック表示の変更
+		const originalText = button.textContent;
+		button.textContent = &#39;Copied!&#39;;
+		button.classList.add(&#39;copied&#39;);
+
+		setTimeout(() =&gt; {
+		  button.textContent = originalText;
+		  button.classList.remove(&#39;copied&#39;);
+		}, 2000);
+	  } catch (err) {
+		console.error(&#39;Failed to copy: &#39;, err);
+	  }
+	});
+  });
+});
+</code></pre></li>
+</ol>
+
+		</div>
+	</article>
 </main>
 
 
+
+
 			</div>
-			
-<aside class="sidebar sidebar--left">
+			<aside class="sidebar sidebar--left">
 <div class="widget-recent widget">
 	<h4 class="widget__title">最近の投稿</h4>
 	<div class="widget__content">
