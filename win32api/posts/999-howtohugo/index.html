@@ -47,11 +47,10 @@
 <h2 id="方法は2つある">方法は2つある</h2>
 <p>Hugo で GitHub Pages を作る方法は2つある。</p>
 <ul>
-<li>ローカルの Hugo でページを作り、GitHub Pages に push する。</li>
-<li>GitHub に Markdown を push するとサーバー側の Hugo がページを更新。</li>
+<li>ローカルの Hugo で HTML ページを作る → GitHub に push する。</li>
+<li>GitHub に Markdown を push → サーバー側の Hugo がページを更新。</li>
 </ul>
-<p>今回はローカルで HTML を作る方法にした。<br>
-手元でデバッグとか校正したページを公開したいですからね。</p>
+<p>今回はローカルで HTML を作って push する方法にした。手元で校正したいので。</p>
 <h2 id="関連ツールのインストール">関連ツールのインストール</h2>
 <ol>
 <li><strong>Hugo</strong> をインストールする。winget を使うと簡単である。
@@ -68,7 +67,7 @@
 </ol>
 <h2 id="プロジェクトの作成とテーマの設定">プロジェクトの作成とテーマの設定</h2>
 <ol>
-<li>サイト単位で Hugo のプロジェクトを作成する。<br>
+<li>サイトごとに Hugo のプロジェクトを作成する。<br>
 ここでは <strong>win32api-progs</strong> というプロジェクト名にしてみた。<br>
 プロジェクトが完成すると、フォルダが作られるので、そこに移動する。
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>hugo new site win32api-progs
@@ -76,21 +75,133 @@
 </span></span></code></pre></div></li>
 <li>設定ファイルを用意する。<br>
 プロジェクトのルートに <strong><code>hugo.toml</code></strong> という設定ファイルを作る。
-<pre tabindex="0"><code># ./hugo.toml
-baseURL = &#39;https://doc.yuimax.org/win32api/&#39;
-title = &#39;win32api-progs&#39;
-</code></pre></li>
+<pre tabindex="0"><code># ./hugo.toml を作成
+baseURL = &#34;https://example.net/win32api/&#34;
+title = &#34;win32api-progs&#34;
+ignoreFiles = [&#34;/__&#34;]
+</code></pre><code>baseURL</code> はルート以下のディレクトリ構成を示すもので、実際のドメイン名は必要ない。<br>
+<code>title</code> はデフォルトで全大文字表示されるが、後で CSS の設定で通常表示に戻す。<br>
+<code>ignoreFiles</code> で除外ファイルを指定する。ここではアンダーバー2個で始まる名前を除外。</li>
 <li>画面テーマをインストールする。<br>
 <code>git init</code> でプロジェクトをリポジトリ化し、<code>git submodule</code> でテーマを入れる。<br>
 今回は <strong>Mainroad</strong> というテーマを選んだ。サイドバーが作りやすいらしい。
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>git init
 </span></span><span style="display:flex;"><span>git submodule add https://github.com/vimux/mainroad.git themes/mainroad
 </span></span></code></pre></div></li>
-<li>設定ファイルにテーマを登録する。<br>
-<code>hugo.toml</code> にテーマ名と言語設定を追加する。
-<pre tabindex="0"><code>theme = &#39;mainroad&#39;
-locale = &#39;ja-jp&#39;
-defaultContentLanguage = &#39;ja&#39;
+<li>設定ファイルでテーマを設定する。<br>
+<code>hugo.toml</code> に、次のようにテーマ名と言語設定を追加。
+<pre tabindex="0"><code># ./hugo.toml に以下を追加
+theme = &#34;mainroad&#34;
+locale = &#34;ja-jp&#34;
+defaultContentLanguage = &#34;ja&#34;
+</code></pre></li>
+<li>サイドバー関連も設定する。<br>
+<code>hugo.toml</code> に、次のようにサイドバー関係の設定を追加。
+<pre tabindex="0"><code># ./hugo.toml に追加
+[params.sidebar]
+home = &#34;left&#34;        # トップページのサイドバー位置
+single = &#34;left&#34;      # 個別記事ページのサイドバー位置
+widgets = [&#34;recent&#34;] # サイドバーに 「最近の投稿」を表示する
+
+[params.widgets]
+recent_num = 20      # 「最近の投稿」に表示する件数
+</code></pre></li>
+</ol>
+<h2 id="css-をカスタマイズし独自のスタイルを指定する">CSS をカスタマイズし、独自のスタイルを指定する</h2>
+<ol>
+<li>hugo.toml で次のように指定する。
+<pre tabindex="0"><code># ./hugo.toml に追加
+[params]
+customCSS = [&#34;css/custom.css&#34;]
+</code></pre></li>
+<li><code>static</code> ディレクトリの下に <code>css/custom.css</code> というファイルを作る。<br>
+現在の設定は次の通り。
+<pre tabindex="0"><code>/* static/css/custom.css */
+
+body {
+  font-family:
+    Meiryo,
+    &#34;Noto Sans&#34;,
+    &#34;Helvetica Neue&#34;,
+    Ubuntu,
+    &#34;DejaVu Sans&#34;,
+    sans-serif;
+}
+
+h1 {
+  border-left: 6px solid #bbb;
+  padding: 3px 0 1px 6px;
+  background-color: #f4f4f4;
+  font-size: 167%;
+}
+
+h2 {
+  margin: 1.5rem 0 1rem 0;
+  padding: 3px 0 1px 6px;
+  border-left: 6px solid #bbb;
+  background-color: #f4f4f4;
+  font-size: 124%;
+}
+
+h3 {
+  margin: 1.5rem 0 1rem 0;
+  padding: 4px 0;
+  font-size: 100%;
+  word-break: break-all;
+  background-color: #f4f4f4;
+}
+
+h3::before {
+  content: &#34;\25FE&#34;; /* ◼️ Black Medium Square */
+  padding: 2px 0;
+}
+
+hr {
+  border: none;
+  height: 2px;
+  background-color: #aaa; /* 線の色を指定 */
+}
+
+code {
+  color: #222;
+  background: #eee;
+}
+
+pre {
+  border: 1px solid #999;
+  padding: 10px 16px;
+  margin: 6px 0;
+  line-height: 150%;
+}
+
+.header__container {
+  background: #f8f8f8;
+}
+
+.divider {
+  height: 3px;
+  background: #aaa;
+}
+
+.logo__text {
+  text-transform: none;
+}
+
+.logo__tagline {
+  color: black;
+}
+
+.widget__title {
+  border-bottom: 3px solid #aaa;
+}
+
+a, .content a {
+  color: #2b73b7;
+}
+
+.content ol li {
+  margin-bottom: 16px
+}
 </code></pre></li>
 </ol>
 <h2 id="レンダーフックのインストール">レンダーフックのインストール</h2>
@@ -104,18 +215,16 @@ defaultContentLanguage = &#39;ja&#39;
 </ul>
 <h3 id="コードブロックに-copy-ボタンを追加">コードブロックに COPY ボタンを追加</h3>
 <ol>
-<li>
-<p>ファイル <code>layouts/_default/_markup/render-codeblock.html</code> を作り下記を設定する。</p>
+<li>ファイル <code>layouts/_default/_markup/render-codeblock.html</code> を作り下記を設定する。
 <pre tabindex="0"><code>&lt;div class=&#34;code-block-wrapper&#34;&gt;
   &lt;div class=&#34;code-block-header&#34;&gt;
-	&lt;span class=&#34;code-lang&#34;&gt;{{ .Type | default &#34;text&#34; }}&lt;/span&gt;
-	&lt;button class=&#34;copy-button&#34; aria-label=&#34;Copy code&#34;&gt;Copy&lt;/button&gt;
+    &lt;span class=&#34;code-lang&#34;&gt;{{ .Type | default &#34;text&#34; }}&lt;/span&gt;
+    &lt;button class=&#34;copy-button&#34; aria-label=&#34;Copy code&#34;&gt;Copy&lt;/button&gt;
   &lt;/div&gt;
   &lt;pre&gt;&lt;code class=&#34;language-{{ .Type }}&#34;&gt;{{ .Inner }}&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 </code></pre></li>
-<li>
-<p>CSS を追加する。</p>
+<li>CSS を追加する。
 <pre tabindex="0"><code>.code-block-wrapper {
   position: relative;
   margin: 1em 0;
@@ -154,30 +263,29 @@ defaultContentLanguage = &#39;ja&#39;
   color: #1e1e1e;
 }
 </code></pre></li>
-<li>
-<p>ファイル <code>baseof.html</code> の末尾に次の JavaScript を追加する。</p>
+<li>ファイル <code>baseof.html</code> の末尾に次の JavaScript を追加する。
 <pre tabindex="0"><code>document.addEventListener(&#39;DOMContentLoaded&#39;, () =&gt; {
   document.querySelectorAll(&#39;.copy-button&#39;).forEach(button =&gt; {
-	button.addEventListener(&#39;click&#39;, async () =&gt; {
-	  const wrapper = button.closest(&#39;.code-block-wrapper&#39;);
-	  const code = wrapper.querySelector(&#39;code&#39;).innerText;
+    button.addEventListener(&#39;click&#39;, async () =&gt; {
+      const wrapper = button.closest(&#39;.code-block-wrapper&#39;);
+      const code = wrapper.querySelector(&#39;code&#39;).innerText;
 
-	  try {
-		await navigator.clipboard.writeText(code);
+      try {
+        await navigator.clipboard.writeText(code);
 
-		// フィードバック表示の変更
-		const originalText = button.textContent;
-		button.textContent = &#39;Copied!&#39;;
-		button.classList.add(&#39;copied&#39;);
+        // フィードバック表示の変更
+        const originalText = button.textContent;
+        button.textContent = &#39;Copied!&#39;;
+        button.classList.add(&#39;copied&#39;);
 
-		setTimeout(() =&gt; {
-		  button.textContent = originalText;
-		  button.classList.remove(&#39;copied&#39;);
-		}, 2000);
-	  } catch (err) {
-		console.error(&#39;Failed to copy: &#39;, err);
-	  }
-	});
+        setTimeout(() =&gt; {
+          button.textContent = originalText;
+          button.classList.remove(&#39;copied&#39;);
+        }, 2000);
+      } catch (err) {
+        console.error(&#39;Failed to copy: &#39;, err);
+      }
+    });
   });
 });
 </code></pre></li>

@@ -110,11 +110,10 @@ return RegisterClassEx(&amp;wcex);
 <h2 id="方法は2つある">方法は2つある</h2>
 <p>Hugo で GitHub Pages を作る方法は2つある。</p>
 <ul>
-<li>ローカルの Hugo でページを作り、GitHub Pages に push する。</li>
-<li>GitHub に Markdown を push するとサーバー側の Hugo がページを更新。</li>
+<li>ローカルの Hugo で HTML ページを作る → GitHub に push する。</li>
+<li>GitHub に Markdown を push → サーバー側の Hugo がページを更新。</li>
 </ul>
-<p>今回はローカルで HTML を作る方法にした。<br>
-手元でデバッグとか校正したページを公開したいですからね。</p>
+<p>今回はローカルで HTML を作って push する方法にした。手元でじっくり校正したいので。</p>
 <h2 id="関連ツールのインストール">関連ツールのインストール</h2>
 <ol>
 <li><strong>Hugo</strong> をインストールする。winget を使うと簡単である。
@@ -131,7 +130,7 @@ return RegisterClassEx(&amp;wcex);
 </ol>
 <h2 id="プロジェクトの作成とテーマの設定">プロジェクトの作成とテーマの設定</h2>
 <ol>
-<li>サイト単位で Hugo のプロジェクトを作成する。<br>
+<li>サイトごとに Hugo のプロジェクトを作成する。<br>
 ここでは <strong>win32api-progs</strong> というプロジェクト名にしてみた。<br>
 プロジェクトが完成すると、フォルダが作られるので、そこに移動する。
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>hugo new site win32api-progs
@@ -139,21 +138,36 @@ return RegisterClassEx(&amp;wcex);
 </span></span></code></pre></div></li>
 <li>設定ファイルを用意する。<br>
 プロジェクトのルートに <strong><code>hugo.toml</code></strong> という設定ファイルを作る。
-<pre tabindex="0"><code># ./hugo.toml
-baseURL = &#39;https://doc.yuimax.org/win32api/&#39;
-title = &#39;win32api-progs&#39;
-</code></pre></li>
+<pre tabindex="0"><code># ./hugo.toml を作成
+baseURL = &#39;https://example.net/win32api/&#39;
+title = &#34;win32api-progs&#34;
+ignoreFiles = [&#39;/__&#39;]
+</code></pre><code>baseURL</code> はルート以下のディレクトリ構成を示すもので、実際のドメイン名は必要ない。<br>
+<code>title</code> はデフォルトで全大文字表示されるが、後で CSS の設定で通常表示に戻す。<br>
+<code>ignoreFiles</code> で除外ファイルを指定する。ここではアンダーバー2個で始まる名前を除外。</li>
 <li>画面テーマをインストールする。<br>
 <code>git init</code> でプロジェクトをリポジトリ化し、<code>git submodule</code> でテーマを入れる。<br>
 今回は <strong>Mainroad</strong> というテーマを選んだ。サイドバーが作りやすいらしい。
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>git init
 </span></span><span style="display:flex;"><span>git submodule add https://github.com/vimux/mainroad.git themes/mainroad
 </span></span></code></pre></div></li>
-<li>設定ファイルにテーマを登録する。<br>
-<code>hugo.toml</code> にテーマ名と言語設定を追加する。
-<pre tabindex="0"><code>theme = &#39;mainroad&#39;
+<li>設定ファイルでテーマを設定する。<br>
+<code>hugo.toml</code> に、次のようにテーマ名と言語設定を追加。
+<pre tabindex="0"><code># ./hugo.toml に以下を追加
+theme = &#39;mainroad&#39;
 locale = &#39;ja-jp&#39;
 defaultContentLanguage = &#39;ja&#39;
+</code></pre></li>
+<li>サイドバー関連も設定する。<br>
+<code>hugo.toml</code> に、次のようにサイドバー関係の設定を追加。
+<pre tabindex="0"><code># ./hugo.toml に追加
+[params.sidebar]
+home = &#34;left&#34;        # トップページのサイドバー位置
+single = &#34;left&#34;      # 個別記事ページのサイドバー位置
+widgets = [&#34;recent&#34;] # サイドバーに 「最近の投稿」を表示する
+
+[params.widgets]
+recent_num = 20      # 「最近の投稿」に表示する件数
 </code></pre></li>
 </ol>
 <h2 id="レンダーフックのインストール">レンダーフックのインストール</h2>
@@ -166,17 +180,7 @@ defaultContentLanguage = &#39;ja&#39;
 
 			</div>
 			
-<aside class="sidebar sidebar--left">
-<div class="widget-recent widget">
-	<h4 class="widget__title">最近の投稿</h4>
-	<div class="widget__content">
-		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/win32api/posts/001-mainwindow/">001-MainWindow</a></li>
-			<li class="widget__item"><a class="widget__link" href="/win32api/posts/999-howtohugo/">999-HowToHugo</a></li>
-		</ul>
-	</div>
-</div>
-</aside>
+
 		</div>
 		<footer class="footer">
 	<div class="container footer__container flex">

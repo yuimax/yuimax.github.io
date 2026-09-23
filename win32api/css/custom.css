@@ -1,3 +1,5 @@
+/* static/css/custom.css */
+
 body {
   font-family:
     Meiryo,
@@ -16,18 +18,19 @@ h1 {
 }
 
 h2 {
-  border-left: 6px solid #bbb;
+  margin: 1.5rem 0 1rem 0;
   padding: 3px 0 1px 6px;
+  border-left: 6px solid #bbb;
   background-color: #f4f4f4;
   font-size: 124%;
 }
 
 h3 {
+  margin: 1.5rem 0 1rem 0;
+  padding: 4px 0;
   font-size: 100%;
-  margin: 0 0 1em 2px;
   word-break: break-all;
   background-color: #f4f4f4;
-  padding: 4px 0;
 }
 
 h3::before {
@@ -49,6 +52,8 @@ code {
 pre {
   border: 1px solid #999;
   padding: 10px 16px;
+  margin: 6px 0;
+  line-height: 150%;
 }
 
 .header__container {
@@ -74,4 +79,8 @@ pre {
 
 a, .content a {
   color: #2b73b7;
+}
+
+.content ol li {
+  margin-bottom: 16px
 }

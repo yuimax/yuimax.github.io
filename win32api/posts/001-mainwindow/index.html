@@ -96,18 +96,6 @@ return RegisterClassEx(&amp;wcex);
 <li><strong>CS_NOCLOSE</strong><br>
 タイトルバーの「×」ボタン、システムメニューの「閉じる(C)」、Alt+F4 キーによるアプリ終了を禁止する。</li>
 </ul>
-<p>{{*/</p>
-<ul>
-<li><strong>CS_OWNDC</strong>\ ウィンドウごとに固有のDCを1つ作成し永続保持する。GetDC() を呼び出すたびに同じDCのハンドルが返される。フォントやペンなどを毎回作り直さなくてよい。</li>
-<li><strong>CS_CLASSDC</strong>\ 同じクラスから生成された全ウィンドウでDCを共有する。マルチスレッド非対応のため現代では非推奨。</li>
-<li><strong>CS_PARENTDC</strong>\ 親ウィンドウのDCを借りて描画。ボタン等のコントロールが高速描画のため利用する。親ウィンドウにも描画できてしまうので注意。</li>
-<li><strong>CS_SAVEBITS</strong>\ ウィンドウの背景に隠れる部分をビットマップとしてシステムが保存する。旧時代の高速描画に使われたもので、現代では無意味。</li>
-<li><strong>CS_BYTEALIGNCLIENT</strong>\ ウィンドウのX座標をバイト境界（8の倍数）に制限する。旧時代の高速描画に使われたもので、現代では無意味、むしろ有害。</li>
-<li><strong>CS_BYTEALIGNWINDOW</strong>\ クライアント領域のX座標をバイト境界（8の倍数）に制限する。旧時代の高速描画に使われたもので、現代では無意味、むしろ有害。</li>
-<li><strong>CS_GLOBALCLASS</strong>\ カスタムコントロールなどが内部的に利用する。</li>
-<li><strong>CS_DROPSHADOW</strong>\ ウィンドウの周囲に影をつける。Windows XP 時代に追加されたスタイルだが、現在では別の方法で影を付けるため使われない。
-*/}}</li>
-</ul>
 <h3 id="2-wcexlpfnwndproc">(2) wcex.lpfnWndProc</h3>
 <p>各種ウィンドウメッセージを処理するための関数。
 ここではソースコード内の WndProc() 関数を指定している。
