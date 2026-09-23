@@ -114,7 +114,7 @@ return RegisterClassEx(&amp;wcex);
 <li>GitHub に Markdown を push するとサーバー側の Hugo がページを更新。</li>
 </ul>
 <p>今回はローカルで HTML を作る方法にした。<br>
-手元でデバッグとか校正したバージョンを公開したいですからね。</p>
+手元でデバッグとか校正したページを公開したいですからね。</p>
 <h2 id="関連ツールのインストール">関連ツールのインストール</h2>
 <ol>
 <li><strong>Hugo</strong> をインストールする。winget を使うと簡単である。
@@ -137,12 +137,24 @@ return RegisterClassEx(&amp;wcex);
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>hugo new site win32api-progs
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> win32api-progs
 </span></span></code></pre></div></li>
+<li>設定ファイルを用意する。<br>
+プロジェクトのルートに <strong><code>hugo.toml</code></strong> という設定ファイルを作る。
+<pre tabindex="0"><code># ./hugo.toml
+baseURL = &#39;https://doc.yuimax.org/win32api/&#39;
+title = &#39;win32api-progs&#39;
+</code></pre></li>
 <li>画面テーマをインストールする。<br>
 <code>git init</code> でプロジェクトをリポジトリ化し、<code>git submodule</code> でテーマを入れる。<br>
 今回は <strong>Mainroad</strong> というテーマを選んだ。サイドバーが作りやすいらしい。
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>git init
 </span></span><span style="display:flex;"><span>git submodule add https://github.com/vimux/mainroad.git themes/mainroad
 </span></span></code></pre></div></li>
+<li>設定ファイルにテーマを登録する。<br>
+<code>hugo.toml</code> にテーマ名と言語設定を追加する。
+<pre tabindex="0"><code>theme = &#39;mainroad&#39;
+locale = &#39;ja-jp&#39;
+defaultContentLanguage = &#39;ja&#39;
+</code></pre></li>
 </ol>
 <h2 id="レンダーフックのインストール">レンダーフックのインストール</h2>
 <p>レンダーフックとは、Hugo に機能を追加するプラグインのようなものである。<br>

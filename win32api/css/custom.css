@@ -43,6 +43,16 @@ hr {
 
 code {
   color: #222;
+  background: #eee;
+}
+
+pre {
+  border: 1px solid #999;
+  padding: 10px 16px;
+}
+
+.header__container {
+  background: #f8f8f8;
 }
 
 .divider {
