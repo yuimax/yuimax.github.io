@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html class="no-js" lang="ja">
+<head><script src="/hugomemo/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=hugomemo/livereload" data-no-instant defer></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>2. GitHub Pages の作り方 - Hugo memo</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/hugomemo/css/style.css">
+	<link rel="stylesheet" href="/hugomemo/css/custom.css">
+
+	<link rel="shortcut icon" href="/hugomemo/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/hugomemo/" title="Hugo memo" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Hugo memo</div>
+					
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">2. GitHub Pages の作り方</h1>
+			
+		</header>
+		<div class="content post__content clearfix">
+			<p>GitHub Pages はいわゆる無料ホームページサービスである。
+ただし CGI や PHP などサーバーサイドプログラミング環境は使えず、
+静的 HTML と JavaScript だけで構築する必要がある。</p>
+<h2 id="guthub-pages-の作成方法">GutHub Pages の作成方法</h2>
+<ol>
+<li>GitHub に「ユーザー名.github.io」というリポジトリを作ると自動的に GitHub Pages になる。
+ユーザー名が <code>yuimax</code> なら、リポジトリ名は <code>yuimax.github.io</code> である。</li>
+<li>リポジトリの作成手順は他の git プロジェクトと同じである。<br>
+まずローカルに <code>yuimax.github.io</code> フォルダを作り、そこに移動する。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span><span style="color:#66d9ef">mkdir</span> yuimax.github.io
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> yuimax.github.io
+</span></span></code></pre></div></li>
+<li>フォルダに <strong><code>.gitignore</code></strong> を作っておく。下記は当サイトの実例。
+<pre tabindex="0"><code>.*
+_*
+</code></pre>.env 等をうっかり公開しないよう、ピリオドネームはデフォルトで管理対象から除外する。</li>
+<li><strong><code>README.md</code></strong> も作っておく。当サイトの実例。
+<pre tabindex="0"><code># yuimax.github.io
+* https://yuimax.github.io
+</code></pre></li>
+<li>ここが Web サイトのルートになるので <strong><code>index.html</code></strong> も作っておく。当サイトの実例。
+<pre tabindex="0"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&#34;ja&#34;&gt;
+&lt;head&gt;&lt;meta charset=&#34;utf-8&#34;&gt;&lt;/head&gt;
+&lt;body&gt;&lt;p&gt;ここをキャンプ地とする&lt;/p&gt;&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></li>
+<li>フォルダをローカルリポジトリ化し、GitHub に push する。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>git init
+</span></span><span style="display:flex;"><span>git add .
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;initial commit&#34;</span>
+</span></span><span style="display:flex;"><span>gh repo create --source=. --public --push
+</span></span></code></pre></div></li>
+<li>GitHub のリポジトリを確認する。<br>
+＞ <a href="https://github.com/yuimax/yuimax.github.io/tree/bd93de90574b95698108ba08e773b5989dee22d3">https://github.com/yuimax/yuimax.github.io</a></li>
+<li>しばらく待つと <code>https://リポジトリ名/</code> でブラウザからアクセス可能になる。<br>
+＞ <a href="https://yuimax.github.io/">https://yuimax.github.io/</a></li>
+</ol>
+<h2 id="独自ドメインのサブドメインでアクセスする">独自ドメインのサブドメインでアクセスする</h2>
+<p>自分の管理するドメインを GitHub Pages に割り当てることができる。
+ルートドメインの割り当ても可能だが、ここではサブドメインを使う方法を書く。
+参考＞ <a href="https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site#configuring-a-subdomain">GitHub Pages: サブドメインを設定する</a></p>
+<h3 id="dnsの設定-docyuimaxorg--yuimaxgithubio">DNSの設定： doc.yuimax.org → yuimax.github.io</h3>
+<ol>
+<li>まず自ドメインのゾーン設定に次の CNAME レコードを追加する。
+<pre tabindex="0"><code>doc.yuimax.org. IN  CNAME  yuimax.github.io.
+</code></pre></li>
+<li>ただしドメインの設定方法は管理ツールによりいろいろである。<br>
+うちで使っている「さくらのドメイン」の場合、管理画面で下記を設定すればよい。
+<pre tabindex="0"><code>エントリー名	タイプ	データ
+doc             CNAME   yuimax.github.io.
+</code></pre><strong>user-name.github.io. の最後にピリオド <code>.</code> が必須</strong> なので注意。</li>
+</ol>
+<h3 id="github-の設定-docyuimaxorg-経由のアクセスを有効にする">GitHub の設定： doc.yuimax.org 経由のアクセスを有効にする</h3>
+<ol>
+<li>ブラウザで GitHub Pages のリポジトリを開き、<strong>Settings</strong> 画面を開く。<br>
+＞ <a href="https://github.com/yuimax/yuimax.github.io/settings">https://github.com/yuimax/yuimax.github.io/settings</a></li>
+<li>左のサイドバーから <strong>Pages</strong> メニューを選択する。<br>
+＞ <a href="https://github.com/yuimax/yuimax.github.io/settings/pages">https://github.com/yuimax/yuimax.github.io/settings/pages</a></li>
+<li>下のほうに <strong>Custom domain</strong> という入力欄があるので、
+<pre tabindex="0"><code>doc.yuimax.org
+</code></pre>と入力して、[Save] ボタンを押す。</li>
+</ol>
+<h3 id="設定の確認">設定の確認</h3>
+<ol>
+<li>しばらく(2～3分)待つと自ドメインが有効になるので、新しい URL でアクセスしてみる。<br>
+＞ <a href="https://doc.yuimax.org/">https://doc.yuimax.org/</a><br>
+ブラウザのアドレスバーに doc.yuimax.org の URL が表示されれば成功である。</li>
+<li>リポジトリには <code>CNAME</code> というファイルが作られている。<br>
+＞ <a href="https://github.com/yuimax/yuimax.github.io/tree/8658d087c97de4a7c6336a08b2d96c5b21647bee">https://github.com/yuimax/yuimax.github.io</a></li>
+<li>元の URL でもアクセスできるが、新しい URL に飛ばされてしまう。<br>
+＞ <a href="https://yuimax.github.io/">https://yuimax.github.io/</a><br>
+アドレスバーを見ると doc.yuimax.org にリダイレクトされたことがわかる。</li>
+</ol>
+<h3 id="github-側の変更をローカルリポジトリに反映する">GitHub 側の変更をローカルリポジトリに反映する</h3>
+<ol>
+<li>GitHub 側で <code>CNAME</code> というファイルが追加されたので、ローカルリポジトリにも反映しておく。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>git pull
+</span></span></code></pre></div></li>
+</ol>
+<h2 id="github-pages-では自動的に-actions-が起動する">GitHub Pages では自動的に Actions が起動する</h2>
+<ol>
+<li>普通のリポジトリを GitHub に push しただけでは何も起きない。<br>
+デフォルトでは Actions が登録されていないからである。<br>
+例： <a href="https://github.com/yuimax/myproject/actions">https://github.com/yuimax/myproject/actions</a></li>
+<li>しかし GitHub Pages の場合は、自動的にサイト構築用の Actions が登録される。<br>
+例： <a href="https://github.com/yuimax/yuimax.github.io/actions">https://github.com/yuimax/yuimax.github.io/actions</a><br>
+GitHub Pages のリポジトリを push すると、この Actions が起動する。</li>
+<li>上記のページで最新ログの行をクリックすると、実際におこなった処理が表示される。<br>
+この GitHub Pages の Actions では、<br>
+| <code>build</code> <br>
+| <code>report-build-status</code><br>
+| <code>deploy</code><br>
+という3つのジョブが実行されていることがわかる。</li>
+</ol>
+<h2 id="github-actions-の進行を監視する">GitHub Actions の進行を監視する</h2>
+<ol>
+<li>Actions の進行は <code>gh</code> コマンドで監視できる。
+これを利用して、GitHub Pages の構築完了を待つ PowerShell スクリプトを作ってみる。</li>
+<li>PowerShell は古い <code>powershell.exe</code> ではなく、v7版の <code>pwsh.exe</code> を使用する。<br>
+まだ入れてなければインストールする。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>winget install --id Microsoft.PowerShell --source winget
+</span></span></code></pre></div></li>
+<li><code>pwsh.exe</code> の動作確認。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>pwsh --version
+</span></span></code></pre></div></li>
+<li>ローカルリポジトリに、次のファイルを <code>deploy.ps1</code> という名前で保存する。
+ファイルの文字コードは UTF-8 とする。
+<pre tabindex="0"><code># 現在の日時を取得
+$timestamp = Get-Date -Format &#34;yyyy/MM/dd HH:mm (UTCz)&#34;
+
+# ローカルリポジトリの変更をコミットしてプッシュ
+git add .
+git commit -m &#34;cmt: $timestamp&#34;
+git push origin main
+
+# GitHubの準備ができるまで少し待つ
+Start-Sleep -Seconds 3
+
+# 最新の実行IDを取得
+$id = gh run list --limit 1 --json databaseId --jq &#39;.[0].databaseId&#39;
+if (!$id) {
+    Write-Host &#34;`n実行中の Actions がありません。&#34;
+    exit
+}
+
+# 実行IDを監視
+gh run watch $id
+
+# 終了メッセージを表示する
+$result = gh run view $id --json conclusion --jq &#39;.conclusion&#39;
+if ($result -eq &#34;success&#34;) {
+    Write-Host &#34;`nActions が完了しました。&#34;;
+} else {
+    Write-Host &#34;`n処理が失敗しました (Result: $result)&#34;
+}
+</code></pre>ここでは <code>gh run list ...</code> で実行中の Actions の ID を取得し、
+<code>gh run watch $id</code> で進行を監視している。</li>
+<li>ローカルリポジトリを変更したら、いつもの <code>add</code>→<code>commit</code>→<code>push</code> の代わりに、
+このスクリプトを <code>pwsh.exe</code> で実行する。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>pwsh deploy.ps1
+</span></span></code></pre></div>すると Actions の進行状況がリアルタイムに表示される。<br>
+最後に「Actions が完了しました。」が出れば GitHub Pages の更新は完了である。<br>
+＞ <a href="https://github.com/yuimax/yuimax.github.io/tree/595d157d1d9ed1b5ed93b773571e96d57bb46dcc">https://github.com/yuimax/yuimax.github.io</a><br>
+これでもうページをリロードしつつ、更新まだかな～と待つ必要はない。</li>
+</ol>
+
+		</div>
+	</article>
+</main>
+
+
+
+
+			</div>
+			<aside class="sidebar sidebar--left">
+<div class="widget-recent widget">
+	<h4 class="widget__title">最近の投稿</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/hugomemo/posts/03-howtohugo/">3. Hugo で作る GitHub Pages</a></li>
+			<li class="widget__item"><a class="widget__link" href="/hugomemo/posts/02-githubpages/">2. GitHub Pages の作り方</a></li>
+			<li class="widget__item"><a class="widget__link" href="/hugomemo/posts/01-githubaccount/">1. GitHub の使い方</a></li>
+			<li class="widget__item"><a class="widget__link" href="/hugomemo/posts/00-firstpost/">0. 投稿のテスト</a></li>
+		</ul>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2026 Hugo memo.
+			<span class="footer__copyright-credits">このサイトは <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> と <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> テーマで生成されています。</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/hugomemo/js/menu.js"></script>
+</body>
+</html>

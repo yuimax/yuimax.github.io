@@ -1,0 +1,86 @@
+/* custom.css */
+
+body {
+  font-family:
+    Meiryo,
+    "Noto Sans",
+    "Helvetica Neue",
+    Ubuntu,
+    "DejaVu Sans",
+    sans-serif;
+}
+
+h1 {
+  border-left: 6px solid #bbb;
+  padding: 3px 0 1px 6px;
+  background-color: #f4f4f4;
+  font-size: 167%;
+}
+
+h2 {
+  margin: 1.5rem 0 1rem 0;
+  padding: 3px 0 1px 6px;
+  border-left: 6px solid #bbb;
+  background-color: #f4f4f4;
+  font-size: 124%;
+}
+
+h3 {
+  margin: 1.5rem 0 1rem 0;
+  padding: 4px 0;
+  font-size: 100%;
+  word-break: break-all;
+  background-color: #f4f4f4;
+}
+
+h3::before {
+  content: "\25FE"; /* ◼️ Black Medium Square */
+  padding: 2px 0;
+}
+
+hr {
+  border: none;
+  height: 2px;
+  background-color: #aaa; /* 線の色を指定 */
+}
+
+code {
+  color: #222;
+  background: #eee;
+}
+
+pre {
+  border: 1px solid #999;
+  padding: 10px 16px;
+  margin: 6px 0;
+  line-height: 150%;
+}
+
+.header__container {
+  background: #f8f8f8;
+}
+
+.divider {
+  height: 3px;
+  background: #aaa;
+}
+
+.logo__text {
+  text-transform: none;
+}
+
+.logo__tagline {
+  color: black;
+}
+
+.widget__title {
+  border-bottom: 3px solid #aaa;
+}
+
+a, .content a {
+  color: #2b73b7;
+}
+
+.content ol li {
+  margin-bottom: 16px
+}

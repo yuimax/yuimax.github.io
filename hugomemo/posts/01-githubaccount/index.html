@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html class="no-js" lang="ja">
+<head><script src="/hugomemo/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=hugomemo/livereload" data-no-instant defer></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>1. GitHub の使い方 - Hugo memo</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/hugomemo/css/style.css">
+	<link rel="stylesheet" href="/hugomemo/css/custom.css">
+
+	<link rel="shortcut icon" href="/hugomemo/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/hugomemo/" title="Hugo memo" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Hugo memo</div>
+					
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">1. GitHub の使い方</h1>
+			
+		</header>
+		<div class="content post__content clearfix">
+			<p>Windows で GitHub を利用する手順。</p>
+<h2 id="関連ツールのインストール">関連ツールのインストール</h2>
+<ol>
+<li>Windows 用の <strong><a href="https://git-scm.com/install/windows">git コマンド</a></strong> を入れる。<br>
+<a href="https://gitforwindows.org/">Git for Windows</a> がおすすめ。
+←公式のインストーラーをダウンロードして実行する。<br>
+インストールできたら動作確認する。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>git --version
+</span></span></code></pre></div></li>
+<li><a href="https://docs.github.com/ja/github-cli/github-cli/about-github-cli">GitHub CLI</a> (gh コマンド) もあったほうがいい。<br>
+winget を使うと簡単にインストールできる。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>winget install --id GitHub.cli --source winget
+</span></span></code></pre></div>動作確認する。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>gh --version
+</span></span></code></pre></div></li>
+</ol>
+<h2 id="github-にアカウントを作る">GitHub にアカウントを作る</h2>
+<ol>
+<li>公式入口 (<a href="https://github.com/">https://github.com/</a>) から Sign up を実行する。</li>
+<li>ユーザー名 <code>yuimax</code> で登録完了＞ <a href="https://github.com/yuimax">https://github.com/yuimax</a></li>
+<li>次の段階で必要になるので、<strong>ユーザー名</strong> と <strong>メールアドレス</strong> を覚えておく。</li>
+</ol>
+<h2 id="git-コマンドの認証設定-ssh">git コマンドの認証設定 (SSH)</h2>
+<ol>
+<li>ローカル PC に、ユーザー名とメールアドレスを登録する。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>git config --global user.name <span style="color:#e6db74">&#34;GitHubのユーザー名&#34;</span>
+</span></span><span style="display:flex;"><span>git config --global user.email <span style="color:#e6db74">&#34;GitHubに登録したメールアドレス&#34;</span>
+</span></span></code></pre></div></li>
+<li>ローカル PC に、SSH 暗号鍵ペアを作成する。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>ssh-keygen -t ed25519 -C <span style="color:#e6db74">&#34;GitHubに登録したメールアドレス&#34;</span>
+</span></span></code></pre></div>質問の回答はすべてデフォルト（Enterキーのみ）でよい。</li>
+<li>フォルダ <code>%USERPROFILE%/.ssh</code> に公開鍵ファイル <code>id_ed25519.pub</code> が作られているので、<br>
+<code>ssh-ed25519 AAAAC3...</code> から始まる行全体をコピーする。</li>
+<li>ブラウザで GitHub にログインし、<a href="https://github.com/settings/">https://github.com/settings/</a> を開く。<br>
+左のメニューバーで、[SSH and GPG keys] を選択する。<br>
+[New SSH Key] をクリックする。<br>
+Title に任意の識別名を入力し、Key に公開鍵を貼り付けて [Add SSH key] を押す。</li>
+<li>接続テストする。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>ssh -T git@github.com
+</span></span></code></pre></div>初回接続時に確認を求められたら <strong>yes</strong> と入力する。</li>
+</ol>
+<h2 id="gh-コマンドの認証設定">gh コマンドの認証設定</h2>
+<ol>
+<li>前項で SSH 暗号鍵は作成済みとする。</li>
+<li>gh コマンドで GitHub にログインする。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>gh auth login
+</span></span></code></pre></div></li>
+<li>質問に対し、以下のように回答する。<br>
+What account do you want to log into?<br>
+→ <strong>GitHub.com</strong><br>
+What is your preferred protocol for Git operations on this host?<br>
+→ <strong>SSH</strong><br>
+Upload your SSH public key to your GitHub account?<br>
+→ <strong>Skip</strong><br>
+Generate a new SSH key to add to your GitHub account?<br>
+→ <strong>No</strong><br>
+How would you like to authenticate GitHub CLI?<br>
+→ <strong>Login with a web browser</strong></li>
+<li>8文字のワンタイムコードが発行され、コンソールに表示される。<br>
+Enter キーを押すとブラウザが開くのでワンタイムコードを入力する。<br>
+ブラウザの確認ボタンを押して、登録完了。</li>
+<li>動作確認する。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>gh auth status
+</span></span></code></pre></div>ログイン状態やアカウント情報が表示されれば設定完了。</li>
+</ol>
+<h2 id="リポジトリの作り方">リポジトリの作り方</h2>
+<ol>
+<li>まずローカル PC にプロジェクトのフォルダを作り、そこに移動する。<br>
+ここでは <strong>myproject</strong> という名前にする。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span><span style="color:#66d9ef">mkdir</span> myproject
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> myproject
+</span></span></code></pre></div>以後このフォルダの中で作業を進める。</li>
+<li><strong><code>.gitignore</code></strong> ファイルを作成し、git 管理から除外したいファイルを指定する。<br>
+うちでは下線2個 <code>__</code> またはピリオド <code>.</code> で始まる名前を管理から外している。<br>
+管理対象としたいものは個別に <code>!名前</code> として除外を解除（つまり許可）する。
+<pre tabindex="0"><code># .gitignore の設定例
+__*         # 下線2個で始まる名前を管理対象から除外する
+.*          # ピリオドで始まる名前を管理対象から除外する
+!.github/   # ただし .github/ は管理対象とする
+</code></pre></li>
+<li><strong><code>README.md</code></strong> も作成する。GitHub でリポジトリのトップに表示される。
+<pre tabindex="0"><code># myproject
+GitHub の使い方の練習場
+</code></pre></li>
+<li>Windows の改行コードに関する警告を抑制する。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>git config --global core.safecrlf false
+</span></span></code></pre></div>git のデフォルト設定では Windows の改行コード CR+LF を LF に変換して GitHub に上げる。
+このとき Windows 側に LF が混在していると警告が出るらしいが、無視しても問題ない。</li>
+<li><strong><code>git init</code></strong> でリポジトリを初期化する。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>git init
+</span></span></code></pre></div>するとサブフォルダ <code>.git</code> に設定が保存される。
+<code>.git</code> は通常は見えないが、<code>dir /a</code> で見える。
+以後このフォルダは <strong>git リポジトリ</strong> として扱われる。</li>
+<li>現在の状態をリポジトリに記録する。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>git add .
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;initlal commit&#34;</span>
+</span></span></code></pre></div>現状記録が <code>add</code> → <code>commit</code> の2段階処理なのは、
+add の間違いを取り消せるようにしたらしいが、
+うちでは add 即 commit なので2段階に分ける意味はなかったりする。</li>
+<li>ローカルリポジトリを元に、GitHub に新しいリポジトリを作る。<br>
+これは <strong><code>gh コマンド</code></strong> を利用すると簡単である。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>gh repo create --source=. --public --push
+</span></span></code></pre></div>すでに GitHub 側にリポジトリが存在するとエラーになる。</li>
+<li>GitHub にリポジトリが作られたらブラウザで確認する。<br>
+この時点のリポジトリ＞ <a href="https://github.com/yuimax/myproject/tree/2e8e92b50c0cd204eee4d3d03ccf80860fa55b37">https://github.com/yuimax/myproject/tree/2e8...</a></li>
+</ol>
+<h2 id="プロジェクトの更新をリポジトリで管理する">プロジェクトの更新をリポジトリで管理する</h2>
+<ol>
+<li>ファイルを編集・追加・削除したらリポジトリを更新する。<br>
+まずローカルリポジトリに対し <code>add</code> + <code>commit</code> を実行し、現状を記録する。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>git add .
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;ファイルを追加したよ&#34;</span>
+</span></span></code></pre></div>最近は AI でメッセージを生成したりするが、ここでは自力でメッセージを書く。</li>
+<li>ローカルリポジトリを GitHub に push する。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>git push origin main
+</span></span></code></pre></div>これで GitHub 側のリポジトリも更新される。<br>
+この時点のリポジトリ＞ <a href="https://github.com/yuimax/myproject/tree/7dff1f193e6e3498ae9662e358be9d66339a8234">https://github.com/yuimax/myproject/tree/7df...</a></li>
+</ol>
+<h2 id="過去の状況を見直す">過去の状況を見直す</h2>
+<ol>
+<li>git では過去に commit した時点の状況を、いつでも見返すことができる。<br>
+過去を見るのはローカルでも可能だが、GitHub の機能を利用すると便利である。</li>
+<li>それには GitHub で commit の履歴を表示する。<br>
+＞ <a href="https://github.com/yuimax/myproject/commits/">https://github.com/yuimax/myproject/commits/</a><br>
+そして <strong>見たい commit の右端の <code>&lt;&gt;</code> をクリックする</strong> と、当時のファイル一覧を表示する。</li>
+<li>なお、ローカルで commit の履歴を見るには、<code>git log</code> コマンドを利用する。<br>
+<code>--oneline</code> オプションを付けると、1回の commit が1行に表示されるので見やすい。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>git log --oneline
+</span></span></code></pre></div></li>
+<li>過去のファイルをローカルで確認したい場合は、<code>git show</code> コマンドを利用する。<br>
+まず <code>git log --oneline</code> で、左端のコミットハッシュ値を調べる。<br>
+たとえばハッシュ値が <code>2e8392b</code> なら、
+<code>git show 2e8392b:ファイルパス</code> を実行すると、その時点のファイルの内容が出力される。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>git show 2e8e92b:./README.md
+</span></span></code></pre></div>出力結果をリダイレクトしてファイルに書き込めるので、バイナリ画像データなども取り出せる。</li>
+</ol>
+<h2 id="github-のリポジトリを削除する">GitHub のリポジトリを削除する</h2>
+<ol>
+<li>ブラウザから GitHub リポジトリを削除する方法。<br>
+ブラウザで目的のリポジトリを開く。<br>
+上部メニューバーから <strong>[Settings]</strong> を開く。<br>
+ページ最下部の <strong>[Delete this repository]</strong> ボタンを押す。<br>
+何回か確認ダイアログが出るので、全部正しく答えると削除完了。</li>
+<li>ローカルで <code>gh コマンド</code> を使っても削除できるらしい。やったことはないが手順だけ示す。<br>
+まず <code>gh</code> コマンドに削除権限を付与する。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>gh auth refresh -s delete_repo
+</span></span></code></pre></div>これで次のコマンドにより、GitHub 側のリポジトリを削除できる。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>gh repo delete yuimax/myproject
+</span></span></code></pre></div></li>
+</ol>
+<h2 id="ローカルのリポジトリ情報を削除する">ローカルのリポジトリ情報を削除する</h2>
+<ol>
+<li>プロジェクトのファイルを消さずにリポジトリ情報だけリセットしたいことがある。<br>
+<code>.git</code> フォルダをまるごと削除すれば、リポジトリ情報がすべて消える。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span><span style="color:#66d9ef">rmdir</span> /s /q .git
+</span></span></code></pre></div></li>
+</ol>
+<h2 id="github-リポジトリをローカルに複製する">GitHub リポジトリをローカルに複製する</h2>
+<p>GitHub のリポジトリをローカルPCに複製する方法はいくつかある。<br>
+自分のリポジトリに限らず、公開リポジトリなら誰のものでもコピーできる。</p>
+<ol>
+<li><code>gh repo clone ユーザー名/リポジトリ名</code> を使う。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>gh repo clone yuimax/myproject
+</span></span></code></pre></div>自分のリポジトリの場合、<code>ユーザー名/</code> は省略できる。</li>
+<li><code>git clone https://github.com/ユーザー名/リポジトリ名.git</code> を使う。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>git clone https://github.com/yuimax/myproject.git
+</span></span></code></pre></div></li>
+<li><code>git clone --depth N ...</code> で、最近 N 回の commit だけ複製する。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>git clone --depth 1 https://github.com/yuimax/myproject.git
+</span></span></code></pre></div></li>
+</ol>
+<h2 id="その他の操作">その他の操作</h2>
+<p>あとで書く（かもしれない）。</p>
+<ul>
+<li>ブランチについて</li>
+<li>Actions について</li>
+<li>リポジトリのForkについて</li>
+<li>Pull Request について</li>
+</ul>
+
+		</div>
+	</article>
+</main>
+
+
+
+
+			</div>
+			<aside class="sidebar sidebar--left">
+<div class="widget-recent widget">
+	<h4 class="widget__title">最近の投稿</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/hugomemo/posts/03-howtohugo/">3. Hugo で作る GitHub Pages</a></li>
+			<li class="widget__item"><a class="widget__link" href="/hugomemo/posts/02-githubpages/">2. GitHub Pages の作り方</a></li>
+			<li class="widget__item"><a class="widget__link" href="/hugomemo/posts/01-githubaccount/">1. GitHub の使い方</a></li>
+			<li class="widget__item"><a class="widget__link" href="/hugomemo/posts/00-firstpost/">0. 投稿のテスト</a></li>
+		</ul>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2026 Hugo memo.
+			<span class="footer__copyright-credits">このサイトは <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> と <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> テーマで生成されています。</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/hugomemo/js/menu.js"></script>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html class="no-js" lang="ja">
+<head><script src="/hugomemo/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=hugomemo/livereload" data-no-instant defer></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>3. Hugo で作る GitHub Pages - Hugo memo</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/hugomemo/css/style.css">
+	<link rel="stylesheet" href="/hugomemo/css/custom.css">
+
+	<link rel="shortcut icon" href="/hugomemo/favicon.ico">
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/hugomemo/" title="Hugo memo" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Hugo memo</div>
+					
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">3. Hugo で作る GitHub Pages</h1>
+			
+		</header>
+		<div class="content post__content clearfix">
+			<p>Hugo は静的 Web サイト構築ツールである。<br>
+ここでは Windows で Hugo を利用し、GitHub Pages を作る手順を示す。</p>
+<h2 id="hugo-と-github-pages-の関係">Hugo と GitHub Pages の関係</h2>
+<p>Hugo で GitHub Pages を作る方法は2つある。</p>
+<ul>
+<li><strong>ローカルの Hugo</strong> で HTML ページを作る → GitHub に push する。</li>
+<li>GitHub に Markdown を push → <strong>サーバー側の Hugo</strong> がページを更新。</li>
+</ul>
+<p>今回はローカルの Hugo で作った HTML ページを push する方法にした。<br>
+そのほうが手元で校正しやすいので。</p>
+<h2 id="ツールのインストール">ツールのインストール</h2>
+<ol>
+<li><strong>Hugo</strong> をインストールする。winget を使うと簡単である。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>winget install Hugo.Hugo.Extended
+</span></span></code></pre></div></li>
+</ol>
+<h2 id="プロジェクトの作成">プロジェクトの作成</h2>
+<ol>
+<li>ひとつのサイトごとに Hugo のプロジェクトを作成する。<br>
+ここでは <strong>hugomemo</strong> というプロジェクト名にしてみた。<br>
+無事にプロジェクトが完成すると、フォルダが作られているので、そこに移動する。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>hugo new site hugomemo
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> hugomemo
+</span></span></code></pre></div></li>
+<li>設定ファイルの準備。<br>
+プロジェクトのルートにある <strong><code>hugo.toml</code></strong> という設定ファイルを編集する。
+<pre tabindex="0"><code># hugo.toml を修正
+baseURL = &#34;https://example.net/hugomemo/&#34;
+title = &#34;Hugo memo&#34;
+ignoreFiles = [&#34;/__&#34;]
+</code></pre><code>baseURL</code> はルート以下のフォルダ構成を示すもので、実際のドメイン名を指定する必要はない。<br>
+<code>title</code> はデフォルトで全大文字表示されるが、後で CSS の設定で通常表示に戻す。<br>
+<code>ignoreFiles</code> で除外ファイルを指定する。ここではアンダーバー2個で始まる名前を除外。</li>
+</ol>
+<h2 id="テーマの設定">テーマの設定</h2>
+<ol>
+<li>画面テーマをインストールする。<br>
+<code>git init</code> でプロジェクトをリポジトリ化し、<code>git submodule</code> でテーマを入れる。<br>
+今回は <strong>Mainroad</strong> というテーマを選んだ。サイドバーが作りやすいらしい。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>git init
+</span></span><span style="display:flex;"><span>git submodule add https://github.com/vimux/mainroad.git themes/mainroad
+</span></span></code></pre></div></li>
+<li>設定ファイルでテーマを設定する。<br>
+<code>hugo.toml</code> に、次のようにテーマ名と言語設定を追加。
+<pre tabindex="0"><code># hugo.toml に追加
+theme = &#34;mainroad&#34;
+locale = &#34;ja-jp&#34;
+defaultContentLanguage = &#34;ja&#34;
+</code></pre></li>
+<li>サイドバー関連も設定する。<br>
+<code>hugo.toml</code> に、次のようにサイドバー関係の設定を追加。
+<pre tabindex="0"><code># hugo.toml に追加
+[params.sidebar]
+home = &#34;left&#34;        # トップページのサイドバー位置
+single = &#34;left&#34;      # 個別記事ページのサイドバー位置
+widgets = [&#34;recent&#34;] # サイドバーに 「最近の投稿」を表示する
+
+[params.widgets]
+recent_num = 20      # 「最近の投稿」に表示する件数
+</code></pre></li>
+</ol>
+<h2 id="トップページの設定">トップページの設定</h2>
+<ol>
+<li>ファイル <code>layouts/index.html</code> を作り、トップページのテンプレートを設定する。
+<pre tabindex="0"><code>{{ define &#34;main&#34; }}
+  &lt;!-- _index.md の本文のみを表示 --&gt;
+  &lt;div class=&#34;content&#34;&gt;
+	{{ .Content }}
+  &lt;/div&gt;
+{{ end }}
+</code></pre></li>
+<li>ファイル <code>content/_index.md</code> を作り、トップページの内容を設定する。<br>
+ファイル名にアンダーバーを付けて <code>_index.md</code> とすることに注意。
+<pre tabindex="0"><code># Hugo memo トップページ
+Hugo の使い方に関する備忘メモ。
+</code></pre></li>
+</ol>
+<h2 id="記事の作成">記事の作成</h2>
+<ol>
+<li>個別記事のフォルダ構成について。<br>
+<code>content/posts</code> の下に記事フォルダを作り、その中の <code>index.md</code> に記事内容を書く。<br>
+この記事のみで使う画像などがあれば記事フォルダに入れる。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>content
+</span></span><span style="display:flex;"><span>|
+</span></span><span style="display:flex;"><span>+-- _index.md  &lt;-- トップページのソース
+</span></span><span style="display:flex;"><span>|
+</span></span><span style="display:flex;"><span>+-- posts
+</span></span><span style="display:flex;"><span>	|
+</span></span><span style="display:flex;"><span>	+-- 01-firstpost  &lt;-- 記事ごとにフォルダを作る
+</span></span><span style="display:flex;"><span>	|   |
+</span></span><span style="display:flex;"><span>	|   +-- index.md  &lt;-- 記事のソースを書く
+</span></span><span style="display:flex;"><span>	|   |
+</span></span><span style="display:flex;"><span>	|   +-- img1.png  &lt;-- この記事のみが参照する画像
+</span></span><span style="display:flex;"><span>	|
+</span></span></code></pre></div></li>
+<li>記事のソース (<code>index.md</code>) は、<strong>フロントマター</strong>（ヘッダ部分）と記事本体で構成される。<br>
+実際の <code>index.md</code> の例を下記に示す。
+<pre tabindex="0"><code>+++
+title = &#34;0. 投稿のテスト&#34;
+date  = 2026-10-01T09:00:00+09:00
+draft = false
++++
+
+* これはテストです。
+* **太字** も使えます。
+
+![ALT](img01.jpg)
+![ALT](img02.jpg)
+</code></pre></li>
+<li>フロントマターについて。<br>
+YAML/TOML/JSON 形式が利用できる。本サイトでは TOML を使う。<br>
+<strong>TOML 形式は上下を <code>+++</code> で囲む。</strong><br>
+<br>
+フロントマターのおもな項目：<br>
+<strong><code>title</code></strong> = &quot;記事タイトル&quot;<br>
+<strong><code>description</code></strong> = HTML の <code>&lt;meta name=&quot;description&quot; ...&gt;</code> になる<br>
+<strong><code>draft</code></strong> = 下書き段階なら <strong>true</strong>、公開時は <strong>false</strong> にする<br>
+<strong><code>tags</code></strong> = このページのタグ、例: <code>tags=[&quot;tagA&quot;, &quot;tagB&quot;]</code><br>
+<strong><code>categories</code></strong> = カテゴリ、例: <code>categories=[&quot;cateA&quot;, &quot;cateB&quot;]</code><br>
+<strong><code>weight</code></strong> = 記事の並び順（値が小さい順、マイナス値も可）<br>
+<strong><code>date</code></strong> = 公開日時（ISO 8601形式）、weight が同じ場合は date の新しい順に並ぶ</li>
+<li>記事本文について。<br>
+本文は Markdown で書く。Markdown にもいろいろ方言があるが、<br>
+<a href="https://spec.commonmark.org/">CommonMark</a> と
+<a href="https://github.github.com/gfm/">GitHub Flavored Markdown</a> に対応しているらしい。</li>
+</ol>
+<h2 id="css-をカスタマイズし独自のスタイルを指定する">CSS をカスタマイズし、独自のスタイルを指定する</h2>
+<ol>
+<li><code>hugo.toml</code> に次の設定を追加する。
+<pre tabindex="0"><code># hugo.toml に追加
+[params]
+customCSS = [&#34;css/custom.css&#34;]
+</code></pre></li>
+<li>プロジェクト内の <strong><code>static/css/custom.css</code></strong> というファイルでスタイルを指定する。<br>
+現在の設定はこれ＞ <a href="../../css/custom.css">custom.css</a></li>
+</ol>
+<h2 id="ローカルサーバーを起動しページをデバッグ表示する">ローカルサーバーを起動し、ページをデバッグ表示する</h2>
+<ol>
+<li>次のコマンドを実行するとローカルサーバーが起動する。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>hugo server -D
+</span></span></code></pre></div>ここで <code>-D</code> オプションは、下書き(draft=true)も含めて表示する。</li>
+<li>起動メッセージ内にローカルサーバーの URL が示されるので、ブラウザで開く。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>:
+</span></span><span style="display:flex;"><span>Web Server is available at http://localhost:1313/hugomemo/
+</span></span><span style="display:flex;"><span>:
+</span></span></code></pre></div>この場合は <a href="http://localhost:1313/hugomemo/">http://localhost:1313/hugomemo/</a> にアクセスすればよい。</li>
+<li>ブラウザ表示の自動更新について。<br>
+ローカルサーバーを起動した状態で、<strong>ソースを書き換えるとブラウザ画面に即座に反映</strong> する。</li>
+<li>ここまで設定したテーマと CSS による HTML ページのスクリーンショット。<br>
+<br>
+<strong>● トップページ</strong><br>
+<img src="ss01-toppage.png" alt="ALT"><br>
+<br>
+<strong>● 「投稿のテスト」ページ</strong><br>
+<img src="ss02-firstpost.png" alt="ALT"></li>
+</ol>
+<h2 id="完成版の-web-サイトデータを作る">完成版の Web サイトデータを作る</h2>
+<ol>
+<li>次のコマンドを実行すると <code>public</code> フォルダに、Web サイトのデータが作られる。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>hugo --cleanDestinationDir
+</span></span></code></pre></div>ここで <code>--cleanDestinationDir</code> オプションは、デバッグ時に作られた不用なファイルをすべて消す指定である。</li>
+</ol>
+<h2 id="無料-web-ホスティングで公開してみる">無料 Web ホスティングで公開してみる</h2>
+<ol>
+<li>完成した <code>public</code> フォルダは、そのまま Web サーバーにアップロードするだけで公開できる。
+中身は静的 HTML なので、<strong>CGI や PHP が使えない無料 Web ホスティング</strong> も利用できる。</li>
+<li>フォルダ名 <code>public</code> は、<code>baseURL</code> に合わせて変更する。<br>
+今回は <code>baseURL=&quot;https://example.net/hugomemo/&quot;</code> だから <code>hugomemo</code> にリネームする。</li>
+<li>実際に <a href="https://web.fc2.com">FC2無料ホームページ</a> にアップロードしてみた。<br>
+＞ <a href="https://ydat.web.fc2.com/hugomemo/">https://ydat.web.fc2.com/hugomemo/</a><br>
+あれもう FC2 で良いんじゃない？ とも思ったが、FC2 は3か月放置で広告が出るからね……。</li>
+</ol>
+<h2 id="github-pages-で公開する">GitHub Pages で公開する</h2>
+<ol>
+<li>GitHub Page でも同様に、<code>public</code> を <code>hugomemo</code> にリネームして push するだけである。<br>
+<a href="../02-githubpages">前回の記事</a> で作成した GitHub Pages を確認しておく。<br>
+＞ <a href="https://github.com/yuimax/yuimax.github.io/tree/595d157d1d9ed1b5ed93b773571e96d57bb46dcc">https://github.com/yuimax/yuimax.github.io/</a></li>
+<li>まずローカルで、Hugo の <code>public</code> から GitHub Pages の <code>hugomemo</code> にリンクを張る。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span><span style="color:#66d9ef">mklink</span> /j C:\usr\repo\yuimax.github.io\hugomemo C:\usr\hugo\hugomemo\public
+</span></span></code></pre></div>ちなみに <strong><code>mklink /j dst src</code></strong> は、<code>src</code> から <code>dst</code> にリンクを張るコマンド。
+これで作られるリンクを「ジャンクション」と呼ぶ。フォルダ専用で、ファイルのリンクは作れない。</li>
+<li>このローカルリポジトリを GitHub に push する。<br>
+前回記事で作ったスクリプト <code>deploy.ps1</code> を利用する。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>pwsh deploy.ps1
+</span></span></code></pre></div></li>
+</ol>
+
+		</div>
+	</article>
+</main>
+
+
+
+
+			</div>
+			<aside class="sidebar sidebar--left">
+<div class="widget-recent widget">
+	<h4 class="widget__title">最近の投稿</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/hugomemo/posts/03-howtohugo/">3. Hugo で作る GitHub Pages</a></li>
+			<li class="widget__item"><a class="widget__link" href="/hugomemo/posts/02-githubpages/">2. GitHub Pages の作り方</a></li>
+			<li class="widget__item"><a class="widget__link" href="/hugomemo/posts/01-githubaccount/">1. GitHub の使い方</a></li>
+			<li class="widget__item"><a class="widget__link" href="/hugomemo/posts/00-firstpost/">0. 投稿のテスト</a></li>
+		</ul>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2026 Hugo memo.
+			<span class="footer__copyright-credits">このサイトは <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> と <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> テーマで生成されています。</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/hugomemo/js/menu.js"></script>
+</body>
+</html>
