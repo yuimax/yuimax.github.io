@@ -2,6 +2,6 @@
 * https://yuimax.github.io // 現在は下記のドメインが有効
 * https://doc.yuimax.org
 
-# サイト
+## GitHub Pages 内のサイト
 * https://doc.yuimax.org/hugomemo/
 
