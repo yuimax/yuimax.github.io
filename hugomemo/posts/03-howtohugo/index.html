@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="no-js" lang="ja">
-<head><script src="/hugomemo/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=hugomemo/livereload" data-no-instant defer></script>
+<head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>3. Hugo で作る GitHub Pages - Hugo memo</title>
@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="/hugomemo/css/custom.css">
 
 	<link rel="shortcut icon" href="/hugomemo/favicon.ico">
+		
 		
 </head>
 <body class="body">
@@ -209,7 +210,7 @@ customCSS = [&#34;css/custom.css&#34;]
 <ol>
 <li>完成した <code>public</code> フォルダは、そのまま Web サーバーにアップロードするだけで公開できる。
 中身は静的 HTML なので、<strong>CGI や PHP が使えない無料 Web ホスティング</strong> も利用できる。</li>
-<li>フォルダ名 <code>public</code> は、<code>baseURL</code> に合わせて変更する。<br>
+<li>ただしフォルダ名 <code>public</code> は、<code>baseURL</code> に合わせて変更する。<br>
 今回は <code>baseURL=&quot;https://example.net/hugomemo/&quot;</code> だから <code>hugomemo</code> にリネームする。</li>
 <li>実際に <a href="https://web.fc2.com">FC2無料ホームページ</a> にアップロードしてみた。<br>
 ＞ <a href="https://ydat.web.fc2.com/hugomemo/">https://ydat.web.fc2.com/hugomemo/</a><br>
@@ -217,21 +218,22 @@ customCSS = [&#34;css/custom.css&#34;]
 </ol>
 <h2 id="github-pages-で公開する">GitHub Pages で公開する</h2>
 <ol>
-<li>GitHub Page でも同様に、<code>public</code> を <code>hugomemo</code> にリネームして push するだけである。<br>
-<a href="../02-githubpages">前回の記事</a> で作成した GitHub Pages を確認しておく。<br>
+<li>GitHub Page でも同様に、<code>public</code> を <code>hugomemo</code> に変えて push するだけである。<br>
+まず <a href="../02-githubpages">前回の記事</a> で作成した GitHub Pages を確認しておく。<br>
 ＞ <a href="https://github.com/yuimax/yuimax.github.io/tree/595d157d1d9ed1b5ed93b773571e96d57bb46dcc">https://github.com/yuimax/yuimax.github.io/</a></li>
-<li>まずローカルで、Hugo の <code>public</code> から GitHub Pages の <code>hugomemo</code> にリンクを張る。
+<li>ローカルで、Hugo の <code>public</code> から GitHub Pages の <code>hugomemo</code> にリンクを張る。
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span><span style="color:#66d9ef">mklink</span> /j C:\usr\repo\yuimax.github.io\hugomemo C:\usr\hugo\hugomemo\public
-</span></span></code></pre></div>ちなみに <strong><code>mklink /j dst src</code></strong> は、<code>src</code> から <code>dst</code> にリンクを張るコマンド。
+</span></span></code></pre></div>ちなみに <strong><code>mklink /j dst src</code></strong> は、<code>src</code> から <code>dst</code> にリンクを張るコマンドである。
 これで作られるリンクを「ジャンクション」と呼ぶ。フォルダ専用で、ファイルのリンクは作れない。</li>
 <li>このローカルリポジトリを GitHub に push する。<br>
-前回記事で作ったスクリプト <code>deploy.ps1</code> を利用すると便利。
+前回記事で作ったスクリプト <code>deploy.ps1</code> を利用すると便利である。
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>pwsh deploy.ps1
 </span></span></code></pre></div></li>
 <li>GitHub 側のリポジトリに <code>hugomemo</code> フォルダが追加された。<br>
-＞ <a href="https://github.com/yuimax/yuimax.github.io/tree/b84c663da5ed523d216c8d873e0feca8f7aabf0b">https://github.com/yuimax/yuimax.github.io/</a></li>
-<li>GitHub Pages で Web サイトとして表示されることの確認。<br>
-＞ <a href="https://doc.yuimax.org/hugomemo/">https://doc.yuimax.org/hugomemo/</a></li>
+＞ <a href="https://github.com/yuimax/yuimax.github.io/tree/5c06987dc3d873eb7ae65d234d6ba1f3cd33eb01">https://github.com/yuimax/yuimax.github.io/</a></li>
+<li>GitHub Pages で Web サイトとして表示されることを確認。<br>
+＞ <a href="https://doc.yuimax.org/hugomemo/">https://doc.yuimax.org/hugomemo/</a><br>
+これで完成～！</li>
 </ol>
 
 		</div>

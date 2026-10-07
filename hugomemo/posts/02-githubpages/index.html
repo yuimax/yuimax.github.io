@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="no-js" lang="ja">
-<head><script src="/hugomemo/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=hugomemo/livereload" data-no-instant defer></script>
+<head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>2. GitHub Pages の作り方 - Hugo memo</title>
@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="/hugomemo/css/custom.css">
 
 	<link rel="shortcut icon" href="/hugomemo/favicon.ico">
+		
 		
 </head>
 <body class="body">
@@ -141,7 +142,7 @@ GitHub Pages のリポジトリを push すると、この Actions が起動す�
 <h2 id="github-actions-の進行を監視する">GitHub Actions の進行を監視する</h2>
 <ol>
 <li>Actions の進行は <code>gh</code> コマンドで監視できる。
-これを利用して、GitHub Pages の構築完了を待つ PowerShell スクリプトを作ってみる。</li>
+これを利用して、GitHub Pages の生成完了を待つ PowerShell スクリプトを作ってみる。</li>
 <li>PowerShell は古い <code>powershell.exe</code> ではなく、v7版の <code>pwsh.exe</code> を使用する。<br>
 まだ入れてなければインストールする。
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>winget install --id Microsoft.PowerShell --source winget
