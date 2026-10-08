@@ -38,9 +38,19 @@ h3::before {
   padding: 2px 0;
 }
 
+h4 {
+  margin: 1.5rem 0 1rem 0;
+  padding: 0;
+  font-size: 100%;
+  word-break: break-all;
+  border: 0 solid #999;
+  border-bottom-width: 2px;
+}
+
+
 hr {
   border: none;
-  height: 2px;
+  height: 3px;
   background-color: #aaa; /* 線の色を指定 */
 }
 

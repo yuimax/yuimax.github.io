@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html class="no-js" lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>4. レンダーフックについて - Hugo memo</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/hugomemo/css/style.css">
+	<link rel="stylesheet" href="/hugomemo/css/custom.css">
+
+	<link rel="shortcut icon" href="/hugomemo/favicon.ico">
+		
+		
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/hugomemo/" title="Hugo memo" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Hugo memo</div>
+					
+				</div>
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">4. レンダーフックについて</h1>
+			
+		</header>
+		<div class="content post__content clearfix">
+			<p>Hugo には Markdown → HTML の変換を、<strong>独自のテンプレートでカスタマイズできる仕組み</strong> がある。
+これを レンダーフック（Render Hooks）という。</p>
+<p>レンダーフックを使うことで、たとえば次のようなカスタマイズが可能になる。</p>
+<ul>
+<li>外部リンクに自動で <code>target=&quot;_blank&quot;</code> 属性を付与する</li>
+<li>見出し（<code>h2</code>, <code>h3</code> 等）に自動でアンカーリンクやアイコンを挿入する</li>
+<li>画像を遅延読み込み（<code>loading=&quot;lazy&quot;</code>）したり、レスポンシブ対応に変更する</li>
+</ul>
+<p>仕組みとしては、指定されたディレクトリ（<code>layouts/_default/markup/</code> など）に特定の名前のテンプレートファイルを配置すると、Hugo が自動的にデフォルトの変換処理を上書きしてくれる。</p>
+<p>ちなみに Go 言語をインストールして Hugo Modules の仕組みを導入すると、レンダーフックが簡単に管理できるらしいが、
+本サイトでは <strong>レンダーフックは手作業でインストール</strong> する。</p>
+<hr>
+<p>以下は、レンダーフックの管理について AI に聞いた質問と回答である。
+Hugo Modules による管理システムは便利そうだが、
+まあこの程度なら手作業でいいやという結論になった。</p>
+<h2 id="aiに質問1-レンダーフックのライブラリシステムはありますか">AIに質問1 レンダーフックのライブラリシステムはありますか</h2>
+<p>Hugoではレンダーフックの機能が使えますが、設定がけっこう面倒です。<br>
+いわゆる「プラグイン」のように、手軽に使えるレンダーフックのライブラリシステムはありませんか。</p>
+<h2 id="aiの回答1-gemini">AIの回答1 (Gemini)</h2>
+<p>Hugo には WordPress のプラグインのような単一の集中リポジトリや公式ライブラリシステムは存在しません。
+しかし、<strong>Hugo Modules</strong> という仕組み (Go Modules ベース) を使えば、まさにプラグインと同じように「コマンド一発または設定追加だけ」でサードパーティ製のレンダーフック群を取り込んで利用することができます。</p>
+<p>手軽に導入できる仕組みと、現場でよく使われているライブラリ・モジュールの利用方法を解説します。</p>
+<h3 id="1-hugo-modules-を利用する">1. Hugo Modules を利用する</h3>
+<p>Hugo Modules を使えば、GitHub 上のテーマやレンダーフック集をプロジェクトに組み込めます。
+導入手順は次のようになります。</p>
+<ol>
+<li><strong>プロジェクトをHugoモジュール化:</strong>（まだの場合）
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>hugo mod init github.com/yuimax/hugomemo
+</span></span></code></pre></div></li>
+<li><strong><code>hugo.toml</code> にモジュールを追加:</strong>
+サードパーティ製モジュールを取り込む
+<pre tabindex="0"><code># hugo.toml に追加
+[module]
+  [[module.imports]]
+    path = &#34;github.com/example/render-hooks-module&#34;
+</code></pre></li>
+<li><strong>モジュールのダウンロード:</strong>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo mod get -u
+</span></span></code></pre></div>これだけで、外部モジュールの <code>render-codeblock.html</code> や <code>render-image.html</code> などが自動的に適用されます。</li>
+</ol>
+<h3 id="2-よく使われる実績のあるレンダーフックモジュール">2. よく使われる・実績のあるレンダーフックモジュール</h3>
+<h4 id="-hugo-blox-旧-wowchemy-モジュール群">① <a href="https://github.com/HugoBlox/hugo-blox-builder">Hugo-Blox (旧 Wowchemy) モジュール群</a></h4>
+<ul>
+<li><strong>概要</strong>: 学術系やポートフォリオによく使われるHugoBloxエコシステムでは、コードブロックのコールアウト（警告ボックス）や数式（KaTeX）、画像最適化レンダーフックがコンポーネント化されて配布されています。</li>
+</ul>
+<h4 id="-blowfish-tools-や各種テーマのレンダーフック抽出">② <a href="https://blowfish.page/">blowfish-tools</a> や各種テーマのレンダーフック抽出</h4>
+<ul>
+<li><strong>概要</strong>: 人気テーマ（Blowfish, PaperMod, Anatole など）は強力なレンダーフック（リンクの自動 <code>target=&quot;_blank&quot;</code> 付与、画像Lazyload化、コードコピーボタンなど）を搭載しています。これらはテーマから <code>layouts/_markup/</code> ディレクトリだけを自分のプロジェクトにコピー＆ペーストするか、テーマをモジュールとして部分インポートすることでそのまま活用できます。</li>
+</ul>
+<h4 id="-hugo-code-copy-などの単独コンポーネント">③ <a href="https://www.google.com/search?q=https://github.com/search%3Fq%3Dhugo%2Brender-codeblock%2Bcopy">Hugo-Code-Copy</a> などの単独コンポーネント</h4>
+<ul>
+<li>GitHub上で <code>hugo render hook</code> や <code>hugo-module</code> と検索すると、コードの構文ハイライト拡張や画像のレスポンシブ（<code>srcset</code>）化に特化した単体モジュールが多数見つかります。</li>
+</ul>
+<h3 id="3-自分用ライブラリを最小の手間で管理する方法">3. 「自分用ライブラリ」を最小の手間で管理する方法</h3>
+<p>自分で GitHub に <strong>「標準レンダーフック集リポジトリ」</strong> を作っておくのも効率的です。</p>
+<ol>
+<li>GitHubに <code>my-hugo-renderhooks</code> リポジトリを作成し、以下のような構成にします。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>my-hugo-renderhooks/
+</span></span><span style="display:flex;"><span>├── config.yaml
+</span></span><span style="display:flex;"><span>└── layouts/
+</span></span><span style="display:flex;"><span>	└── _markup/
+</span></span><span style="display:flex;"><span>		├── render-image.html     (レスポンシブ画像化)
+</span></span><span style="display:flex;"><span>		├── render-link.html      (外部リンクを別タブで開く)
+</span></span><span style="display:flex;"><span>		└── render-codeblock.html (コピーボタン付きコード枠)
+</span></span></code></pre></div></li>
+<li>新しい Hugo サイトを作るたび <code>hugo.toml</code> に以下を書けば自作ライブラリが適用されます。
+<pre tabindex="0"><code># hugo.toml に追加
+[module]
+  [[module.imports]]
+    path = &#34;github.com/yourname/my-hugo-renderhooks&#34;
+</code></pre></li>
+</ol>
+<hr>
+<h2 id="aiに質問2">AIに質問2</h2>
+<p>最初に自分のプロジェクトを Hugo モジュール化するのは、なぜですか 。</p>
+<h2 id="aiの回答2-gemini">AIの回答2 (Gemini)</h2>
+<p>最初に自分のプロジェクトを Hugo モジュール化（<code>hugo mod init</code>）する必要があるのは、<strong>Hugo が Go のモジュールシステム（Go Modules）をベースにして依存関係を管理しているため</strong>です。</p>
+<p>具体的には、次のような技術的・運用上の理由があります。</p>
+<h3 id="1-プロジェクト自体をモジュールルートとして認識させるため">1. プロジェクト自体を「モジュール（ルート）」として認識させるため</h3>
+<p>Go Modules（および Hugo Modules）は、プロジェクトのルートディレクトリにある <strong><code>go.mod</code></strong> というファイルを基準に動作します。</p>
+<p><code>hugo mod init &lt;名前&gt;</code> を実行すると、<code>go.mod</code> ファイルが作成され、「このプロジェクトはモジュールシステムを利用するプロジェクトである」と宣言されます。この宣言がないと、Hugoは外部モジュールをどのプロジェクトにインストール・紐付ければよいのか判定できません。</p>
+<h3 id="2-外部モジュールとバージョン情報を-gomod--gosum-に記録するため">2. 外部モジュールとバージョン情報を <code>go.mod</code> / <code>go.sum</code> に記録するため</h3>
+<p>モジュール化しておくことで、外部のレンダーフックやテーマを取り込んだ際（<code>hugo mod get</code> や <code>hugo.yaml</code> での <code>imports</code> 設定時）、Hugoは以下を自動的に記録・追跡します。</p>
+<ul>
+<li><strong>使用している外部モジュールのリポジトリURL</strong></li>
+<li><strong>ダウンロードした正確なコミットハッシュ（またはバージョンタグ）</strong></li>
+<li><strong>セキュリティ検証用のハッシュ値（<code>go.sum</code>）</strong></li>
+</ul>
+<p>これにより、チーム開発やCI/CD環境でのビルド時に「誰がビルドしても全く同じ外部レンダーフック・テーマが再現される」という状態（再現性の確保）が作られます。</p>
+<h3 id="3-themes-に手動コピーせずキャッシュ領域で一括管理するため">3. <code>themes/</code> に手動コピーせず、キャッシュ領域で一括管理するため</h3>
+<p>従来の Hugo では、テーマやプラグイン要素を <code>themes/</code> ディレクトリ配下に Git Submodule や手動コピーで配置していました。</p>
+<p>プロジェクトをモジュール化すると、取り込んだレンダーフック群はローカルの Hugo キャッシュ領域（<code>$GOPATH/pkg/mod</code> や <code>~/.cache/hugo_cache</code>）にダウンロードされ、プロジェクト内を汚さずに管理できるようになります。</p>
+<h3 id="まとめ">まとめ</h3>
+<p>プロジェクトのモジュール化は、いわば Node.js プロジェクトで最初に <code>npm init</code> を実行して <code>package.json</code> を作るのと同じステップです。最初に <code>go.mod</code> を用意することで、外部のレンダーフックライブラリを安全かつスマートにインポートできる土台が整います。</p>
+<hr>
+<h2 id="aiに質問3">AIに質問3</h2>
+<p>Hugo Modules を利用する際に、Go 言語をインストールする必要はありますか。</p>
+<h2 id="aiの回答3-gemini">AIの回答3 (Gemini)</h2>
+<p><strong>はい、Go（Go言語）のインストールが必須です。</strong></p>
+<p>Hugo Modules は Hugo の独自機能ではなく、
+<strong>Go言語のモジュールシステム（Go Modules）に依存して動作している</strong>
+ためです。</p>
+<h3 id="主な理由">主な理由</h3>
+<ul>
+<li><strong><code>hugo mod</code> コマンドの内部動作:</strong>
+<code>hugo mod init</code> や <code>hugo mod get</code> などのコマンドを実行した際、Hugo は裏で Go のコマンド（<code>go mod init</code> や <code>go get</code> など）を呼び出しています。そのため、システム上に Go が存在しないとコマンドがエラーになります。</li>
+<li><strong>外部モジュールの取得とビルド:</strong>
+GitHub などからレンダーフックやテーマのモジュールをダウンロード・管理する処理を Go のツールチェーンに委任しています。</li>
+</ul>
+<h3 id="導入時の注意点">導入時の注意点</h3>
+<ol>
+<li><strong>Go のバージョン:</strong><br>
+Hugo のバージョンにもよりますが、基本的には比較的最新の Go（Go 1.20以上など）をインストールしておく必要があります。</li>
+<li><strong>インストール後の確認:</strong><br>
+Go をインストールしたら、ターミナルで以下を実行してパスが通っているか確認してください。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>go version
+</span></span></code></pre></div>バージョンが表示されれば、Hugo Modules を使用する準備は完了です。</li>
+</ol>
+
+		</div>
+	</article>
+</main>
+
+
+
+
+			</div>
+			<aside class="sidebar sidebar--left">
+<div class="widget-recent widget">
+	<h4 class="widget__title">最近の投稿</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/hugomemo/posts/04-hugomodules/">4. レンダーフックについて</a></li>
+			<li class="widget__item"><a class="widget__link" href="/hugomemo/posts/03-howtohugo/">3. Hugo で作る GitHub Pages</a></li>
+			<li class="widget__item"><a class="widget__link" href="/hugomemo/posts/02-githubpages/">2. GitHub Pages の作り方</a></li>
+			<li class="widget__item"><a class="widget__link" href="/hugomemo/posts/01-githubaccount/">1. GitHub の使い方</a></li>
+			<li class="widget__item"><a class="widget__link" href="/hugomemo/posts/00-firstpost/">0. 投稿のテスト</a></li>
+		</ul>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2026 Hugo memo.
+			<span class="footer__copyright-credits">このサイトは <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> と <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> テーマで生成されています。</span>
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/hugomemo/js/menu.js"></script>
+</body>
+</html>

@@ -44,6 +44,73 @@
 	
 	<header class="list__header">
 		<h2 class="list__title post__title">
+			<a href="/hugomemo/posts/04-hugomodules/" rel="bookmark">
+			4. レンダーフックについて
+			</a>
+		</h2>
+		
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		<p>Hugo には Markdown → HTML の変換を、<strong>独自のテンプレートでカスタマイズできる仕組み</strong> がある。
+これを レンダーフック（Render Hooks）という。</p>
+<p>レンダーフックを使うことで、たとえば次のようなカスタマイズが可能になる。</p>
+<ul>
+<li>外部リンクに自動で <code>target=&quot;_blank&quot;</code> 属性を付与する</li>
+<li>見出し（<code>h2</code>, <code>h3</code> 等）に自動でアンカーリンクやアイコンを挿入する</li>
+<li>画像を遅延読み込み（<code>loading=&quot;lazy&quot;</code>）したり、レスポンシブ対応に変更する</li>
+</ul>
+<p>仕組みとしては、指定されたディレクトリ（<code>layouts/_default/markup/</code> など）に特定の名前のテンプレートファイルを配置すると、Hugo が自動的にデフォルトの変換処理を上書きしてくれる。</p>
+<p>ちなみに Go 言語をインストールして Hugo Modules の仕組みを導入すると、レンダーフックが簡単に管理できるらしいが、
+本サイトでは <strong>レンダーフックは手作業でインストール</strong> する。</p>
+<hr>
+<p>以下は、レンダーフックの管理について AI に聞いた質問と回答である。
+Hugo Modules による管理システムは便利そうだが、
+まあこの程度なら手作業でいいやという結論になった。</p>
+<h2 id="aiに質問1-レンダーフックのライブラリシステムはありますか">AIに質問1 レンダーフックのライブラリシステムはありますか</h2>
+<p>Hugoではレンダーフックの機能が使えますが、設定がけっこう面倒です。<br>
+いわゆる「プラグイン」のように、手軽に使えるレンダーフックのライブラリシステムはありませんか。</p>
+<h2 id="aiの回答1-gemini">AIの回答1 (Gemini)</h2>
+<p>Hugo には WordPress のプラグインのような単一の集中リポジトリや公式ライブラリシステムは存在しません。
+しかし、<strong>Hugo Modules</strong> という仕組み (Go Modules ベース) を使えば、まさにプラグインと同じように「コマンド一発または設定追加だけ」でサードパーティ製のレンダーフック群を取り込んで利用することができます。</p>
+<p>手軽に導入できる仕組みと、現場でよく使われているライブラリ・モジュールの利用方法を解説します。</p>
+<h3 id="1-hugo-modules-を利用する">1. Hugo Modules を利用する</h3>
+<p>Hugo Modules を使えば、GitHub 上のテーマやレンダーフック集をプロジェクトに組み込めます。
+導入手順は次のようになります。</p>
+<ol>
+<li><strong>プロジェクトをHugoモジュール化:</strong>（まだの場合）
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span>hugo mod init github.com/yuimax/hugomemo
+</span></span></code></pre></div></li>
+<li><strong><code>hugo.toml</code> にモジュールを追加:</strong>
+サードパーティ製モジュールを取り込む
+<pre tabindex="0"><code># hugo.toml に追加
+[module]
+  [[module.imports]]
+    path = &#34;github.com/example/render-hooks-module&#34;
+</code></pre></li>
+<li><strong>モジュールのダウンロード:</strong>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hugo mod get -u
+</span></span></code></pre></div>これだけで、外部モジュールの <code>render-codeblock.html</code> や <code>render-image.html</code> などが自動的に適用されます。</li>
+</ol>
+<h3 id="2-よく使われる実績のあるレンダーフックモジュール">2. よく使われる・実績のあるレンダーフックモジュール</h3>
+<h4 id="-hugo-blox-旧-wowchemy-モジュール群">① <a href="https://github.com/HugoBlox/hugo-blox-builder">Hugo-Blox (旧 Wowchemy) モジュール群</a></h4>
+<ul>
+<li><strong>概要</strong>: 学術系やポートフォリオによく使われるHugoBloxエコシステムでは、コードブロックのコールアウト（警告ボックス）や数式（KaTeX）、画像最適化レンダーフックがコンポーネント化されて配布されています。</li>
+</ul>
+<h4 id="-blowfish-tools-や各種テーマのレンダーフック抽出">② <a href="https://blowfish.page/">blowfish-tools</a> や各種テーマのレンダーフック抽出</h4>
+<ul>
+<li><strong>概要</strong>: 人気テーマ（Blowfish, PaperMod, Anatole など）は強力なレンダーフック（リンクの自動 <code>target=&quot;_blank&quot;</code> 付与、画像Lazyload化、コードコピーボタンなど）を搭載しています。これらはテーマから <code>layouts/_markup/</code> ディレクトリだけを自分のプロジェクトにコピー＆ペーストするか、テーマをモジュールとして部分インポートすることでそのまま活用できます。</li>
+</ul>
+<h4 id="-hugo-code-copy-などの単独コンポーネント">③ <a href="https://www.google.com/search?q=https://github.com/search%3Fq%3Dhugo%2Brender-codeblock%2Bcopy">Hugo-Code-Copy</a> などの単独コンポーネント</h4>
+<ul>
+<li>GitHub上で <code>hugo render hook</code> や <code>hugo-module</code> と検索すると、コードの構文ハイライト拡張や画像のレスポンシブ（<code>srcset</code>）化に特化した単体モジュールが多数見つかります。</li>
+</ul>
+<h3 id="3-自分用ライブラリを最小の手間で管理する方法">3. 「自分用ライブラリ」を最小の手間で管理する方法</h3>
+<p>自分で GitHub に <strong>「標準レンダーフック集リポジトリ」</strong> を作っておくのも効率的です。</p>
+	</div>
+</article><article class="list__item post">
+	
+	<header class="list__header">
+		<h2 class="list__title post__title">
 			<a href="/hugomemo/posts/03-howtohugo/" rel="bookmark">
 			3. Hugo で作る GitHub Pages
 			</a>
@@ -227,7 +294,7 @@ customCSS = [&#34;css/custom.css&#34;]
 <ol>
 <li>GitHub Page でも同様に、<code>public</code> を <code>hugomemo</code> に変えて push するだけである。<br>
 まず <a href="../02-githubpages">前回の記事</a> で作成した GitHub Pages を確認しておく。<br>
-＞ <a href="https://github.com/yuimax/yuimax.github.io/">https://github.com/yuimax/yuimax.github.io/</a></li>
+＞ <a href="https://github.com/yuimax/yuimax.github.io/tree/e11e6811b9bb77d35b41f5cab04e0ea2ff3fd6ef">https://github.com/yuimax/yuimax.github.io/</a></li>
 <li>ローカルで、Hugo の <code>public</code> から GitHub Pages の <code>hugomemo</code> にリンクを張る。
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bat" data-lang="bat"><span style="display:flex;"><span><span style="color:#66d9ef">mklink</span> /j C:\usr\repo\yuimax.github.io\hugomemo C:\usr\hugo\hugomemo\public
 </span></span></code></pre></div>ちなみに <strong><code>mklink /j dst src</code></strong> は、<code>src</code> から <code>dst</code> にリンクを張るコマンドである。

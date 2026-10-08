@@ -3,12 +3,15 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://doc.yuimax.org/hugomemo/</loc>
-    <lastmod>2026-10-01T09:04:00+09:00</lastmod>
+    <lastmod>2026-10-08T09:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://doc.yuimax.org/hugomemo/posts/03-howtohugo/</loc>
-    <lastmod>2026-10-01T09:04:00+09:00</lastmod>
+    <loc>https://doc.yuimax.org/hugomemo/posts/04-hugomodules/</loc>
+    <lastmod>2026-10-08T09:00:00+09:00</lastmod>
   </url><url>
     <loc>https://doc.yuimax.org/hugomemo/posts/</loc>
+    <lastmod>2026-10-08T09:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://doc.yuimax.org/hugomemo/posts/03-howtohugo/</loc>
     <lastmod>2026-10-01T09:04:00+09:00</lastmod>
   </url><url>
     <loc>https://doc.yuimax.org/hugomemo/posts/02-githubpages/</loc>
