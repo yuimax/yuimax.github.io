@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="no-js" lang="ja">
-<head>
+<head><script src="/hugomemo/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=hugomemo/livereload" data-no-instant defer></script>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>4. レンダーフックについて - Hugo memo</title>
@@ -15,7 +15,6 @@
 	<link rel="stylesheet" href="/hugomemo/css/custom.css">
 
 	<link rel="shortcut icon" href="/hugomemo/favicon.ico">
-		
 		
 </head>
 <body class="body">
@@ -44,7 +43,7 @@
 			
 		</header>
 		<div class="content post__content clearfix">
-			<p>Hugo には Markdown → HTML の変換を、<strong>独自のテンプレートでカスタマイズできる仕組み</strong> がある。
+			<p>Hugo には Markdown → HTML の変換を、<strong>独自のテンプレートでカスタマイズする機能</strong> がある。
 これを レンダーフック（Render Hooks）という。</p>
 <p>レンダーフックを使うことで、たとえば次のようなカスタマイズが可能になる。</p>
 <ul>
@@ -53,13 +52,13 @@
 <li>画像サイズを指定可能にしたり、レスポンシブ対応にする</li>
 </ul>
 <p>仕組みとしては、指定されたディレクトリ（<code>layouts/_default/markup/</code> など）に特定の名前のテンプレートファイルを配置すると、Hugo が自動的にデフォルトの変換処理を上書きしてくれる。</p>
-<p>Go 言語をインストールして Hugo Modules の仕組みを導入すると、レンダーフックが簡単に管理できるらしいが、
-本サイトでは <strong>レンダーフックは手作業でインストール</strong> する。
-次のページから実際にレンダーフックを入れる手順を書いていく。</p>
+<p>Go 言語をインストールして Go Modules を利用すると、レンダーフックが簡単に管理できるらしい。
+しかし本サイトではその方法を使わず、<strong>手作業でレンダーフックをインストール</strong> する。
+<a href="../05-codecopy/">次回の記事</a> から、実際にレンダーフックを入れてみて、その手順をメモしていく。</p>
 <hr>
 <p>以下はレンダーフックの管理法を AI に質問したログだが読む必要はない。
-話を聞くと Hugo Modules による管理システムは便利そうだが、
-まあこの程度なら手作業でいいやという結論になった。</p>
+話を聞くと Hugo Modules による管理システムは便利そう、
+でもまあこの程度なら手作業でいいや、という結論になった。</p>
 <h2 id="aiに質問1-レンダーフックのライブラリシステムはありますか">AIに質問1 レンダーフックのライブラリシステムはありますか</h2>
 <p>Hugoではレンダーフックの機能が使えますが、設定がけっこう面倒です。<br>
 いわゆる「プラグイン」のように、手軽に使えるレンダーフックのライブラリシステムはありませんか。</p>
@@ -177,6 +176,7 @@ Go をインストールしたら、ターミナルで以下を実行してパ�
 	<h4 class="widget__title">最近の投稿</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/hugomemo/posts/05-codecopy/">5. コードブロックに COPY ボタンを付ける</a></li>
 			<li class="widget__item"><a class="widget__link" href="/hugomemo/posts/04-hugomodules/">4. レンダーフックについて</a></li>
 			<li class="widget__item"><a class="widget__link" href="/hugomemo/posts/03-howtohugo/">3. Hugo で作る GitHub Pages</a></li>
 			<li class="widget__item"><a class="widget__link" href="/hugomemo/posts/02-githubpages/">2. GitHub Pages の作り方</a></li>
